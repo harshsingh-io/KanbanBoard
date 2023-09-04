@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/ll_sign_in_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+        <ImageView
+            android:id="@+id/ivEmail"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="@dimen/sign_in_logo_margin"
+            android:src="@drawable/email_icon"
+            android:contentDescription="@string/email_icon" />
+        <TextView
+            android:id="@+id/tvSignInEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@string/sign_in_with_email"
+            android:textSize="@dimen/sign_in_text_size" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_sign_in_google"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+        <ImageView
+            android:id="@+id/ivGoogle"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="@dimen/sign_in_logo_margin"
+            android:src="@drawable/google_logo"
+            android:contentDescription="@string/google_logo" />
+        <TextView
+            android:id="@+id/tvSignInGoogle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@string/sign_in_with_google"
+            android:textSize="@dimen/sign_in_text_size"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_sign_in_microsoft"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+        <ImageView
+            android:id="@+id/ivMicrosoft"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="@dimen/sign_in_logo_margin"
+            android:src="@drawable/microsoft_icon"
+            android:contentDescription="@string/microsoft_logo" />
+        <TextView
+            android:id="@+id/tvSignInMicrosoft"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@string/sign_in_with_microsoft"
+            android:textSize="@dimen/sign_in_text_size"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_sign_in_apple"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+        <ImageView
+            android:id="@+id/ivApple"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="@dimen/sign_in_logo_margin"
+            android:src="@drawable/apple_logo"
+            android:contentDescription="@string/apple_logo" />
+        <TextView
+            android:id="@+id/tvSignInApple"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@string/sign_in_with_apple"
+            android:textSize="@dimen/sign_in_text_size"/>
+    </LinearLayout>
+
+</LinearLayout>

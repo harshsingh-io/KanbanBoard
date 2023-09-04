@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryBlue"
+    tools:context=".IntroActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+        <ImageView
+            android:id="@+id/appLogo"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/trello_icon_white" />
+
+        <TextView
+            android:id="@+id/tvAppName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/kanbanBoard"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:layout_marginStart="@dimen/splash_screen_title_marginStart"
+            android:textStyle="bold" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ivIllustration"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_marginTop="@dimen/spash_screen_title_marginTop"
+            android:src="@drawable/illustration" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:layout_marginStart="@dimen/activity_intro_text_margin"
+            android:layout_marginEnd="@dimen/activity_intro_text_margin"
+            android:textSize="@dimen/activity_intro_slogan_text_size"
+            android:text="@string/move_teamwork_forward_even_on_the_go" />
+
+        <Button
+            android:id="@+id/btnSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_intro_button_margin"
+            android:background="@drawable/sign_up_button"
+            android:text="@string/sign_up"
+            android:textSize="@dimen/activity_intro_button_text_size"
+            android:textColor="@color/colorPrimaryBlue"
+            app:cornerRadius="8dp" />
+
+        <Button
+            android:id="@+id/btnLogIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/activity_intro_button_text_size"
+            android:layout_marginStart="@dimen/activity_intro_button_margin"
+            android:layout_marginEnd="@dimen/activity_intro_button_margin"
+            android:background="@drawable/login_button"
+            android:text="@string/log_in" />
+        <TextView
+            android:id="@+id/tvTermsAndServices"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/activity_intro_text_margin"
+            android:layout_marginStart="@dimen/activity_intro_text_margin"
+            android:layout_marginEnd="@dimen/activity_intro_text_margin"
+            android:textSize="@dimen/activity_intro_terms_and_conditions_text_size"
+            android:text="@string/by_signing_up_you_agree_to_our_terms_of_services_and_privacy_policy" />
+        <TextView
+            android:id="@+id/tvContactUs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_marginStart="@dimen/activity_intro_text_margin"
+            android:layout_marginEnd="@dimen/activity_intro_text_margin"
+            android:textSize="@dimen/activity_intro_terms_and_conditions_text_size"
+            android:text="@string/contact_us" />
+
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
