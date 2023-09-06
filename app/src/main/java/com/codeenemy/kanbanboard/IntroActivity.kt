@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import com.codeenemy.kanbanboard.databinding.ActivityIntroBinding
+
 class IntroActivity : AppCompatActivity() {
     private var binding: ActivityIntroBinding? = null
     override fun onCreate(savedInstanceState: Bundle?) {

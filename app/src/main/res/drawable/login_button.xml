@@ -8,9 +8,7 @@
             <solid android:color="#00000000" />
 
             <!-- White outline -->
-            <stroke
-                android:width="2dp"
-                android:color="#FFFFFF" />
+            <stroke android:width="2dp" android:color="#FFFFFF" />
 
             <!-- 8dp corner radius -->
             <corners android:radius="8dp" />
@@ -24,9 +22,7 @@
             <solid android:color="#EAEAEA" />
 
             <!-- White outline -->
-            <stroke
-                android:width="2dp"
-                android:color="#FFFFFF" />
+            <stroke android:width="2dp" android:color="#FFFFFF" />
 
             <!-- 8dp corner radius -->
             <corners android:radius="8dp" />

@@ -6,18 +6,19 @@
     android:layout_height="match_parent"
     android:gravity="center"
     tools:context=".SplashActivity">
+
     <ImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/trello_icon"
-        />
+        android:src="@drawable/trello_icon" />
+
     <TextView
         android:id="@+id/tv_app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/splash_screen_title_marginLeft"
         android:gravity="center"
         android:text="@string/kanbanBoard"
-        android:layout_marginLeft="@dimen/splash_screen_title_marginLeft"
         android:textSize="@dimen/spash_screen_title_text_size" />
 
 
