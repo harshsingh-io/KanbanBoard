@@ -1,4 +1,4 @@
-package com.codeenemy.kanbanboard
+package com.codeenemy.kanbanboard.activities
 
 import android.content.Intent
 import android.graphics.Typeface

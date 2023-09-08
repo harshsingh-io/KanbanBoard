@@ -14,7 +14,6 @@
     <dimen name="sign_in_logo_padding">10dp</dimen>
     <dimen name="sign_in_logo_margin">10dp</dimen>
 
-    <dimen name="progress_bar_size">50dp</dimen>
     <dimen name="progress_bar_marginEnd">10dp</dimen>
     <dimen name="progress_bar_text_size">16sp</dimen>
     <dimen name="main_content_padding_progress_dialog">10dp</dimen>
@@ -43,4 +42,9 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="sign_up_branding_margin">20dp</dimen>
+
+    <dimen name="progress_dialog_content_padding">10dp</dimen>
+    <dimen name="progress_bar_size">50dp</dimen>
+    <dimen name="progress_text_marginStart">16dp</dimen>
+    <dimen name="progress_text_size">16sp</dimen>
 </resources>

@@ -1,0 +1,87 @@
+package com.codeenemy.kanbanboard.activities
+
+import android.app.AlertDialog
+import android.app.Dialog
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.os.Handler
+import android.view.View
+import android.widget.TextView
+import android.widget.Toast
+import androidx.core.content.ContextCompat
+import com.codeenemy.kanbanboard.R
+import com.codeenemy.kanbanboard.databinding.ActivityBaseBinding
+import com.codeenemy.kanbanboard.databinding.DialogProgressBinding
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+
+open class BaseActivity : AppCompatActivity() {
+    private var doubleBackToExitPressedOnce = false
+    private lateinit var mProgressDialog: Dialog
+    private var binding: ActivityBaseBinding? = null
+    private var bindingDialog: DialogProgressBinding? = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityBaseBinding.inflate(layoutInflater)
+        setContentView(binding?.root)
+    }
+    fun showProgressDialog(text: String) {
+
+//        mProgressDialog = Dialog(this)
+//        bindingDialog = DialogProgressBinding.inflate(layoutInflater)
+//        mProgressDialog.setContentView(bindingDialog?.root as View)
+//        mProgressDialog.binding? = text
+//        mProgressDialog.show()
+
+        mProgressDialog = Dialog(this)
+        mProgressDialog.setContentView(R.layout.dialog_progress)
+
+        val progressText = mProgressDialog.findViewById<TextView>(R.id.tv_progress_text)
+        progressText.text = text
+
+        // Start the dialog and display it on the screen.
+        mProgressDialog.show()
+    }
+    fun hideProgressDialog() {
+        if (::mProgressDialog.isInitialized && mProgressDialog.isShowing) {
+            mProgressDialog.dismiss()
+        }
+    }
+    fun getCurrentUserID(): String {
+        return FirebaseAuth.getInstance().currentUser!!.uid
+    }
+    fun doubleBackToExit() {
+        if(doubleBackToExitPressedOnce) {
+            super.onBackPressed()
+            return
+        }
+        this. doubleBackToExitPressedOnce = true
+        Toast.makeText(
+            this,
+            resources.getString(R.string.please_click_back_again_to_exit),
+            Toast.LENGTH_SHORT
+        ).show()
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(2000L) // 2000 milliseconds (2 seconds)
+            doubleBackToExitPressedOnce = false
+        }
+    }
+    fun showErrorSnackBar(message: String) {
+        val snackBar =
+            Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG)
+        val snackBarView = snackBar.view
+        snackBarView.setBackgroundColor(
+            ContextCompat.getColor(
+                this@BaseActivity,
+                R.color.snackbar_error_color
+            )
+        )
+        snackBar.show()
+    }
+
+
+}
