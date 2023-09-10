@@ -1,11 +1,8 @@
 package com.codeenemy.kanbanboard.activities
 
-import android.app.AlertDialog
 import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -30,20 +27,10 @@ open class BaseActivity : AppCompatActivity() {
         setContentView(binding?.root)
     }
     fun showProgressDialog(text: String) {
-
-//        mProgressDialog = Dialog(this)
-//        bindingDialog = DialogProgressBinding.inflate(layoutInflater)
-//        mProgressDialog.setContentView(bindingDialog?.root as View)
-//        mProgressDialog.binding? = text
-//        mProgressDialog.show()
-
         mProgressDialog = Dialog(this)
         mProgressDialog.setContentView(R.layout.dialog_progress)
-
         val progressText = mProgressDialog.findViewById<TextView>(R.id.tv_progress_text)
         progressText.text = text
-
-        // Start the dialog and display it on the screen.
         mProgressDialog.show()
     }
     fun hideProgressDialog() {
@@ -82,6 +69,4 @@ open class BaseActivity : AppCompatActivity() {
         )
         snackBar.show()
     }
-
-
 }

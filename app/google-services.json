@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "770638944064",
+    "project_id": "kanbanboard-230b5",
+    "storage_bucket": "kanbanboard-230b5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:770638944064:android:d88bab7780f1dc26238ca5",
+        "android_client_info": {
+          "package_name": "com.codeenemy.kanbanboard"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "770638944064-vra1qjkceo7nlfi74gao8kj726e4vg4g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAM2JgBe2y6b-Wo8GNx-uDGVEiztiGZY5k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "770638944064-vra1qjkceo7nlfi74gao8kj726e4vg4g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
