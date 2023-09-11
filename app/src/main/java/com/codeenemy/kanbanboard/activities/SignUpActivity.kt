@@ -55,7 +55,7 @@ class SignUpActivity : BaseActivity() {
                 showErrorSnackBar("Please enter a password")
                 false
             } else -> {
-                return true
+                true
             }
         }
     }
