@@ -39,24 +39,24 @@ class SignUpActivity : BaseActivity() {
         if (validateForm(name, email, password)) {
             showProgressDialog(resources.getString(R.string.please_wait))
             FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(
-                    { task ->
-                        hideProgressDialog()
-                        if (task.isSuccessful) {
+                .addOnCompleteListener { task ->
+                    hideProgressDialog()
+                    if (task.isSuccessful) {
 
-                            val firebaseUser: FirebaseUser = task.result!!.user!!
-                            val registeredEmail = firebaseUser.email!!
-                            Toast.makeText(
-                                this,
-                                "$name You have registered email address : $registeredEmail",
-                                Toast.LENGTH_LONG
-                            ).show()
-                            FirebaseAuth.getInstance().signOut()
-                            finish()
-                        } else {
+                        val firebaseUser: FirebaseUser = task.result!!.user!!
+                        val registeredEmail = firebaseUser.email!!
+                        Toast.makeText(
+                            this,
+                            "$name You have registered email address : $registeredEmail",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        FirebaseAuth.getInstance().signOut()
+                        finish()
+                    } else {
                         Toast.makeText(this, task.exception!!.message, Toast.LENGTH_SHORT).show()
+                    }
+
                 }
-            )
         }
     }
 
