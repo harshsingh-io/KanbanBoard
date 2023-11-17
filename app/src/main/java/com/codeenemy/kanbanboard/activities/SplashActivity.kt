@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.WindowManager
 import com.codeenemy.kanbanboard.databinding.ActivitySplashBinding
+import com.codeenemy.kanbanboard.firebase.FirestoreClass
 
 class SplashActivity : AppCompatActivity() {
     private var binding: ActivitySplashBinding? = null
@@ -22,7 +23,12 @@ class SplashActivity : AppCompatActivity() {
         binding?.tvAppName?.typeface = typeFace
 
         Handler().postDelayed({
-            startActivity(Intent(this, IntroActivity::class.java))
+            var currentUserID = FirestoreClass().getCurrentUserID()
+            if (currentUserID.isNotEmpty()) {
+                startActivity(Intent(this, MainActivity::class.java))
+            }else {
+                startActivity(Intent(this, IntroActivity::class.java))
+            }
             finish()
         }, 2500)
     }

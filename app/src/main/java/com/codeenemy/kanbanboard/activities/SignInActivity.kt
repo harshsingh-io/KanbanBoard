@@ -11,13 +11,13 @@ import com.codeenemy.kanbanboard.R
 import com.codeenemy.kanbanboard.databinding.ActivitySignInBinding
 import com.codeenemy.kanbanboard.databinding.ActivitySignUpBinding
 import com.codeenemy.kanbanboard.databinding.SignInActivityBinding
+import com.codeenemy.kanbanboard.firebase.FirestoreClass
+import com.codeenemy.kanbanboard.model.User
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+
 
 class SignInActivity : BaseActivity() {
     private var binding: ActivitySignInBinding? = null
-    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,37 +27,32 @@ class SignInActivity : BaseActivity() {
             signInRegisteredUser()
         }
         setupActionBar()
-        auth = Firebase.auth
-
 
     }
+
     private fun signInRegisteredUser() {
         val email: String = binding?.etEmail?.text.toString().trim() { it <= ' ' }
         val password: String = binding?.etPassword?.text.toString().trim() { it <= ' ' }
         if (validateForm(email, password)) {
             showProgressDialog(resources.getString(R.string.please_wait))
-            auth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this) { task ->
+            FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener { task ->
                     hideProgressDialog()
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
-                        Log.d("Sign in", "signInWithEmail:success")
-                        val user = auth.currentUser
-                        startActivity(Intent(this, MainActivity::class.java))
-//                    updateUI(user)
+                        FirestoreClass().signInUser(this@SignInActivity)
                     } else {
                         // If sign in fails, display a message to the user.
-                        Log.w("Sign in", "signInWithEmail:failure", task.exception)
                         Toast.makeText(
                             baseContext,
                             "Registration failed.",
                             Toast.LENGTH_SHORT,
                         ).show()
-//                    updateUI(null)
                     }
                 }
         }
     }
+
     private fun validateForm(email: String, password: String): Boolean {
         return when {
 
@@ -76,13 +71,21 @@ class SignInActivity : BaseActivity() {
             }
         }
     }
+
     private fun setupActionBar() {
         setSupportActionBar(binding?.toolbarSignInActivity)
         val actionBar = supportActionBar
-        if (actionBar!= null) {
+        if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true)
             actionBar.setHomeAsUpIndicator(R.drawable.ic_black_color_back_24dp)
         }
         binding?.toolbarSignInActivity?.setNavigationOnClickListener { onBackPressed() }
     }
+
+    fun signInSuccess(user: User) {
+        hideProgressDialog()
+        startActivity(Intent(this@SignInActivity, MainActivity::class.java))
+        finish()
+    }
+
 }

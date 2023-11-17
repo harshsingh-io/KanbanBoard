@@ -7,8 +7,10 @@ import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import com.codeenemy.kanbanboard.R
 import com.codeenemy.kanbanboard.databinding.ActivitySignUpBinding
+import com.codeenemy.kanbanboard.firebase.FirestoreClass
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.codeenemy.kanbanboard.model.User
 
 class SignUpActivity : BaseActivity() {
     private var binding: ActivitySignUpBinding? = null
@@ -17,6 +19,9 @@ class SignUpActivity : BaseActivity() {
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding?.root)
         setupActionBar()
+        binding?.btnSignUp?.setOnClickListener {
+            registerUser()
+        }
     }
 
     private fun setupActionBar() {
@@ -45,13 +50,8 @@ class SignUpActivity : BaseActivity() {
 
                         val firebaseUser: FirebaseUser = task.result!!.user!!
                         val registeredEmail = firebaseUser.email!!
-                        Toast.makeText(
-                            this,
-                            "$name You have registered email address : $registeredEmail",
-                            Toast.LENGTH_LONG
-                        ).show()
-                        FirebaseAuth.getInstance().signOut()
-                        finish()
+                        val user = User(firebaseUser.uid, name, registeredEmail)
+                        FirestoreClass().registerUser(this@SignUpActivity, user)
                     } else {
                         Toast.makeText(this, task.exception!!.message, Toast.LENGTH_SHORT).show()
                     }
@@ -82,4 +82,24 @@ class SignUpActivity : BaseActivity() {
             }
         }
     }
+    fun userRegisteredSuccess() {
+
+        Toast.makeText(
+            this@SignUpActivity,
+            "You have successfully registered.",
+            Toast.LENGTH_SHORT
+        ).show()
+
+        // Hide the progress dialog
+        hideProgressDialog()
+
+        /**
+         * Here the new user registered is automatically signed-in so we just sign-out the user from firebase
+         * and send him to Intro Screen for Sign-In
+         */
+        FirebaseAuth.getInstance().signOut()
+        // Finish the Sign-Up Screen
+        finish()
+    }
+
 }
