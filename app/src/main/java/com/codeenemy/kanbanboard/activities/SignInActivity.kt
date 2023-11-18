@@ -1,16 +1,11 @@
 package com.codeenemy.kanbanboard.activities
 
-import android.content.ContentValues.TAG
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.widget.Toast
 import com.codeenemy.kanbanboard.R
 import com.codeenemy.kanbanboard.databinding.ActivitySignInBinding
-import com.codeenemy.kanbanboard.databinding.ActivitySignUpBinding
-import com.codeenemy.kanbanboard.databinding.SignInActivityBinding
 import com.codeenemy.kanbanboard.firebase.FirestoreClass
 import com.codeenemy.kanbanboard.model.User
 import com.google.firebase.auth.FirebaseAuth
@@ -40,7 +35,7 @@ class SignInActivity : BaseActivity() {
                     hideProgressDialog()
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
-                        FirestoreClass().signInUser(this@SignInActivity)
+                        FirestoreClass().loadUserData(this@SignInActivity)
                     } else {
                         // If sign in fails, display a message to the user.
                         Toast.makeText(

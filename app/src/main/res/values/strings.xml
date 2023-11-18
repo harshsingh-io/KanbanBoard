@@ -24,6 +24,8 @@
     <string name="name">Name</string>
     <string name="password">Password</string>
     <string name="email">Email</string>
+    <string name="sign_in_description_text">Enter your email id and password, to continue
+        with us.</string>
     <string name="sign_in">SIGN IN</string>
 
     <string name="please_click_back_again_to_exit">Please click back again to exit.</string>
@@ -33,4 +35,8 @@
     <string name="nav_sign_out">Sign Out</string>
     <string name="image_contentDescription">Image</string>
     <string name="username">Username</string>
+
+    <string name="mobile">Mobile</string>
+    <string name="update">UPDATE</string>
+    <string name="my_profile">My Profile</string>
 </resources>

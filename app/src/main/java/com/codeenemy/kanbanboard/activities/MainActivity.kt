@@ -1,11 +1,8 @@
 package com.codeenemy.kanbanboard.activities
 
 import android.content.Intent
-import android.opengl.Visibility
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
-import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -16,7 +13,6 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.bumptech.glide.Glide
 import com.codeenemy.kanbanboard.R
 import com.codeenemy.kanbanboard.databinding.ActivityMainBinding
-import com.codeenemy.kanbanboard.databinding.NavHeaderMainBinding
 import com.codeenemy.kanbanboard.firebase.FirestoreClass
 import com.codeenemy.kanbanboard.model.User
 import com.google.android.material.navigation.NavigationView
@@ -43,7 +39,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         navView?.setNavigationItemSelectedListener(this)
         navUserName = findViewById(R.id.tv_user_name)
         navUserImage = findViewById(R.id.iv_user_image)
-        FirestoreClass().signInUser(this)
+        FirestoreClass().loadUserData(this)
 
     }
 
@@ -77,11 +73,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_my_profile -> {
-                Toast.makeText(
-                    this@MainActivity,
-                    "My Profile",
-                    Toast.LENGTH_SHORT
-                ).show()
+                startActivity(Intent(this, MyProfileActivity::class.java))
             }
 
             R.id.nav_sign_out -> {
