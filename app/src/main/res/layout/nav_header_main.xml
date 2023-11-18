@@ -34,7 +34,7 @@
         android:layout_marginBottom="@dimen/nav_content_margin_bottom"
         android:textColor="@android:color/white"
         android:textSize="@dimen/nav_user_name_text_size"
-        tools:text="Username" />
+        android:text="@string/username" />
 
     <View
         android:layout_width="match_parent"

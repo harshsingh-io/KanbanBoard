@@ -1,6 +1,8 @@
 package com.codeenemy.kanbanboard.firebase
 
+import android.app.Activity
 import android.util.Log
+import com.codeenemy.kanbanboard.activities.MainActivity
 import com.codeenemy.kanbanboard.activities.SignInActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -46,7 +48,7 @@ class FirestoreClass {
     /**
      * A function to SignIn using firebase and get the user details from Firestore Database.
      */
-    fun signInUser(activity: SignInActivity) {
+    fun signInUser(activity: Activity) {
 
         // Here we pass the collection name from which we wants the data.
         mFireStore.collection(Constants.USERS)
@@ -64,8 +66,17 @@ class FirestoreClass {
                 val loggedInUser = document.toObject(User::class.java)!!
 
                 // Here call a function of base activity for transferring the result to it.
-                activity.signInSuccess(loggedInUser)
+                when(activity) {
+                    is SignInActivity -> {
+                        activity.signInSuccess(loggedInUser)
+
+                    }
+                    is MainActivity -> {
+                        activity.updateNavigationUserDetails(loggedInUser)
+                    }
+                }
                 // END
+
             }
             .addOnFailureListener { e ->
                 Log.e(
