@@ -5,7 +5,7 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimary">@color/colorPrimaryBlue</item>
     </style>
     <style name="Theme.App" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="circularProgressIndicatorStyle">@style/Widget.App.CircularProgressIndicator</item>

@@ -39,4 +39,8 @@
     <string name="mobile">Mobile</string>
     <string name="update">UPDATE</string>
     <string name="my_profile">My Profile</string>
+    <string name="adding_places">Create Board</string>
+    <string name="board_name">Board Name</string>
+    <string name="create">CREATE</string>
+    <string name="create_board">Create Board</string>
 </resources>
