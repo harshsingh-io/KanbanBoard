@@ -18,6 +18,7 @@ import com.codeenemy.kanbanboard.databinding.ActivityMainBinding
 import com.codeenemy.kanbanboard.databinding.AppBarMainBinding
 import com.codeenemy.kanbanboard.firebase.FirestoreClass
 import com.codeenemy.kanbanboard.model.User
+import com.codeenemy.kanbanboard.utils.Constants
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -34,6 +35,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     private var navUserName: TextView? = null
     private var navUserImage: ImageView? = null
     private var fabCreateBoard: FloatingActionButton? = null
+    private lateinit var mUserName: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -52,8 +54,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         fabCreateBoard?.setOnClickListener {
             val intent = Intent(this, CreateBoardActivity::class.java)
+            intent.putExtra(Constants.NAME, mUserName)
             startActivity(intent)
-
         }
     }
 
@@ -119,6 +121,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
 
     fun updateNavigationUserDetails(user: User) {
+        mUserName = user.name
         val userImageView =
             binding?.navView?.getHeaderView(0)?.findViewById<ImageView>(R.id.iv_user_image)
         val usernameTextView =

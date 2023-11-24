@@ -3,6 +3,7 @@ package com.codeenemy.kanbanboard.firebase
 import android.app.Activity
 import android.util.Log
 import android.widget.Toast
+import com.codeenemy.kanbanboard.activities.CreateBoardActivity
 import com.codeenemy.kanbanboard.activities.MainActivity
 import com.codeenemy.kanbanboard.activities.MyProfileActivity
 import com.codeenemy.kanbanboard.activities.SignInActivity
@@ -10,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.codeenemy.kanbanboard.activities.SignUpActivity
+import com.codeenemy.kanbanboard.model.Board
 import com.codeenemy.kanbanboard.model.User
 import com.codeenemy.kanbanboard.utils.Constants
 
@@ -30,17 +32,32 @@ class FirestoreClass {
             // Document ID for users fields. Here the document it is the User ID.
             .document(getCurrentUserID())
             // Here the userInfo are Field and the SetOption is set to merge. It is for if we wants to merge
-            .set(userInfo, SetOptions.merge())
-            .addOnSuccessListener {
+            .set(userInfo, SetOptions.merge()).addOnSuccessListener {
 
                 // Here call a function of base activity for transferring the result to it.
                 activity.userRegisteredSuccess()
+            }.addOnFailureListener { e ->
+                Log.e(
+                    activity.javaClass.simpleName, "Error writing document", e
+                )
             }
-            .addOnFailureListener { e ->
+    }
+
+    fun createBoard(activity: CreateBoardActivity, board: Board) {
+        mFireStore.collection(Constants.BOARDS)
+            .document()
+            .set(board, SetOptions.merge())
+            .addOnSuccessListener {
+                Log.e(activity.javaClass.simpleName, "Board created Successfully.")
+                Toast.makeText(activity, "Board created successfully.", Toast.LENGTH_SHORT).show()
+                activity.boardCreatedSuccessfully()
+            }
+            .addOnFailureListener { exception ->
+                activity.hideProgressDialog()
                 Log.e(
                     activity.javaClass.simpleName,
-                    "Error writing document",
-                    e
+                    "Error while creating a board.",
+                    exception
                 )
             }
     }
@@ -55,9 +72,7 @@ class FirestoreClass {
         // Here we pass the collection name from which we wants the data.
         mFireStore.collection(Constants.USERS)
             // The document id to get the Fields of user.
-            .document(getCurrentUserID())
-            .get()
-            .addOnSuccessListener { document ->
+            .document(getCurrentUserID()).get().addOnSuccessListener { document ->
                 Log.e(
                     activity.javaClass.simpleName, document.toString()
                 )
@@ -68,34 +83,34 @@ class FirestoreClass {
                 val loggedInUser = document.toObject(User::class.java)!!
 
                 // Here call a function of base activity for transferring the result to it.
-                when(activity) {
+                when (activity) {
                     is SignInActivity -> {
                         activity.signInSuccess(loggedInUser)
 
                     }
+
                     is MainActivity -> {
                         activity.updateNavigationUserDetails(loggedInUser)
                     }
+
                     is MyProfileActivity -> {
                         activity.setUserDataInUI(loggedInUser)
                     }
                 }
                 // END
 
-            }
-            .addOnFailureListener { e ->
-                when(activity) {
+            }.addOnFailureListener { e ->
+                when (activity) {
                     is SignInActivity -> {
                         activity.hideProgressDialog()
                     }
+
                     is MainActivity -> {
                         activity.hideProgressDialog()
                     }
                 }
                 Log.e(
-                    activity.javaClass.simpleName,
-                    "Error while getting loggedIn user details",
-                    e
+                    activity.javaClass.simpleName, "Error while getting loggedIn user details", e
                 )
             }
     }
@@ -115,13 +130,10 @@ class FirestoreClass {
 
                 // Notify the success result.
                 activity.profileUpdateSuccess()
-            }
-            .addOnFailureListener { e ->
+            }.addOnFailureListener { e ->
                 activity.hideProgressDialog()
                 Log.e(
-                    activity.javaClass.simpleName,
-                    "Error while creating a board.",
-                    e
+                    activity.javaClass.simpleName, "Error while creating a board.", e
                 )
             }
     }
@@ -133,8 +145,8 @@ class FirestoreClass {
     fun getCurrentUserID(): String {
         var currentUser = FirebaseAuth.getInstance().currentUser
         var currentUserID = ""
-        if (currentUser!=null) {
-            currentUserID=currentUser.uid
+        if (currentUser != null) {
+            currentUserID = currentUser.uid
         }
         return currentUserID
     }
