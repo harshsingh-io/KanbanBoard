@@ -44,20 +44,15 @@ class FirestoreClass {
     }
 
     fun createBoard(activity: CreateBoardActivity, board: Board) {
-        mFireStore.collection(Constants.BOARDS)
-            .document()
-            .set(board, SetOptions.merge())
+        mFireStore.collection(Constants.BOARDS).document().set(board, SetOptions.merge())
             .addOnSuccessListener {
                 Log.e(activity.javaClass.simpleName, "Board created Successfully.")
                 Toast.makeText(activity, "Board created successfully.", Toast.LENGTH_SHORT).show()
                 activity.boardCreatedSuccessfully()
-            }
-            .addOnFailureListener { exception ->
+            }.addOnFailureListener { exception ->
                 activity.hideProgressDialog()
                 Log.e(
-                    activity.javaClass.simpleName,
-                    "Error while creating a board.",
-                    exception
+                    activity.javaClass.simpleName, "Error while creating a board.", exception
                 )
             }
     }
@@ -137,7 +132,25 @@ class FirestoreClass {
                 )
             }
     }
+    fun updateBoardData(activity: CreateBoardActivity, userHashMap: HashMap<String, Any>) {
+        mFireStore.collection(Constants.USERS) // Collection Name
+            .document(getCurrentUserID()) // Document ID
+            .update(userHashMap) // A hashmap of fields which are to be updated.
+            .addOnSuccessListener {
+                // Profile data is updated successfully.
+                Log.e(activity.javaClass.simpleName, "Profile Data updated successfully!")
 
+                Toast.makeText(activity, "Profile updated successfully!", Toast.LENGTH_SHORT).show()
+
+                // Notify the success result.
+                activity.boardUpdateSuccess()
+            }.addOnFailureListener { e ->
+                activity.hideProgressDialog()
+                Log.e(
+                    activity.javaClass.simpleName, "Error while creating a board.", e
+                )
+            }
+    }
 
     /**
      * A function for getting the user id of current logged user.

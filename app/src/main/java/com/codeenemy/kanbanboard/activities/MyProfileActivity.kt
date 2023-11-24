@@ -37,10 +37,12 @@ class MyProfileActivity : BaseActivity() {
         FirestoreClass().loadUserData(this)
         binding?.ivProfileUserImage?.setOnClickListener{
             if (ContextCompat.checkSelfPermission(
-                    this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                == PackageManager.PERMISSION_GRANTED) {
+                    this, Manifest.permission.READ_EXTERNAL_STORAGE
+                )
+                == PackageManager.PERMISSION_GRANTED
+            ) {
                 Constants.showImageChooser(this)
-            } else{
+            } else {
                 ActivityCompat.requestPermissions(
                     this,
                     arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),

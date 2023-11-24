@@ -8,6 +8,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.webkit.MimeTypeMap
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -15,14 +16,20 @@ import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.codeenemy.kanbanboard.R
 import com.codeenemy.kanbanboard.databinding.ActivityCreateBoardBinding
+import com.codeenemy.kanbanboard.firebase.FirestoreClass
+import com.codeenemy.kanbanboard.model.Board
 import com.codeenemy.kanbanboard.model.User
 import com.codeenemy.kanbanboard.utils.Constants
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import java.io.IOException
 
 class CreateBoardActivity : BaseActivity() {
     private var binding: ActivityCreateBoardBinding? = null
     private var mSelectedImageFileUri: Uri? = null
     private lateinit var mUserName: String
+    private var mBoardImageURL: String = ""
+    private lateinit var mBoardDetails: Board
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,17 +37,19 @@ class CreateBoardActivity : BaseActivity() {
         setContentView(binding?.root)
         setupActionBar()
 
-        if(intent.hasExtra(Constants.NAME)) {
+        if (intent.hasExtra(Constants.NAME)) {
             mUserName = intent.getStringExtra(Constants.NAME).toString()
         }
 
 
-        binding?.ivBoardImage?.setOnClickListener{
+        binding?.ivBoardImage?.setOnClickListener {
             if (ContextCompat.checkSelfPermission(
-                    this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                == PackageManager.PERMISSION_GRANTED) {
+                    this, Manifest.permission.READ_EXTERNAL_STORAGE
+                )
+                == PackageManager.PERMISSION_GRANTED
+            ) {
                 Constants.showImageChooser(this)
-            } else{
+            } else {
                 ActivityCompat.requestPermissions(
                     this,
                     arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
@@ -48,7 +57,108 @@ class CreateBoardActivity : BaseActivity() {
                 )
             }
         }
+        binding?.btnCreate?.setOnClickListener {
+            if (mSelectedImageFileUri != null) {
+                uploadBoardImage()
+            } else {
+                showProgressDialog(resources.getString(R.string.please_wait))
+                createBoard()
+            }
+        }
     }
+
+    private fun createBoard() {
+        val assignedUserArrayList: ArrayList<String> = ArrayList()
+        assignedUserArrayList.add(getCurrentUserID())
+
+        var board = Board(
+            binding?.etBoardName?.text.toString(),
+            mBoardImageURL,
+            mUserName,
+            assignedUserArrayList
+            )
+        FirestoreClass().createBoard(this, board)
+    }
+
+    /**
+     * A function to upload the selected user image to firebase cloud storage.
+     */
+    private fun uploadBoardImage() {
+
+        showProgressDialog(resources.getString(R.string.please_wait))
+
+        if (mSelectedImageFileUri != null) {
+
+            //getting the storage reference
+            val sRef: StorageReference = FirebaseStorage.getInstance().reference.child(
+                "BOARD_IMAGE" + System.currentTimeMillis() + "." + Constants.getFileExtension(
+                    this,
+                    mSelectedImageFileUri
+                )
+            )
+
+            //adding the file to reference
+            sRef.putFile(mSelectedImageFileUri!!)
+                .addOnSuccessListener { taskSnapshot ->
+                    // The image upload is success
+                    Log.e(
+                        "Board Image URL",
+                        taskSnapshot.metadata!!.reference!!.downloadUrl.toString()
+                    )
+
+                    // Get the downloadable url from the task snapshot
+                    taskSnapshot.metadata!!.reference!!.downloadUrl
+                        .addOnSuccessListener { uri ->
+                            Log.e("Downloadable Image URL", uri.toString())
+
+                            // assign the image url to the variable.
+                            mBoardImageURL = uri.toString()
+                            hideProgressDialog()
+
+                            // Call a function to update user details in the database.
+                            createBoard()
+                        }
+                }
+                .addOnFailureListener { exception ->
+                    Toast.makeText(
+                        this,
+                        exception.message,
+                        Toast.LENGTH_LONG
+                    ).show()
+
+                    hideProgressDialog()
+                }
+        }
+    }
+
+    /**
+     * A function to update the user profile details into the database.
+     */
+//    private fun updateBoardData() {
+//
+//        val userHashMap = HashMap<String, Any>()
+////        var anyChangesMade = false
+//
+//        if (mBoardImageURL.isNotEmpty() && mBoardImageURL != mBoardDetails.image) {
+//            userHashMap[Constants.IMAGE] = mBoardImageURL
+////            anyChangesMade = true
+//        }
+//
+//        if (binding?.etBoardName?.text.toString() != mBoardDetails.name) {
+//            userHashMap[Constants.NAME] = binding?.etBoardName?.text.toString()
+////            anyChangesMade = true
+//
+//        }
+//
+////        if (binding?.etMobile?.text.toString() != mUserDetails.mobile.toString()) {
+////            userHashMap[Constants.MOBILE] = binding?.etMobile?.text.toString().toLong()
+//////            anyChangesMade = true
+////        }
+//
+//        // Update the data in the database.
+//        FirestoreClass().updateBoardData(this, userHashMap)
+//    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK
@@ -72,6 +182,7 @@ class CreateBoardActivity : BaseActivity() {
             }
         }
     }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -91,6 +202,7 @@ class CreateBoardActivity : BaseActivity() {
             }
         }
     }
+
     private fun setupActionBar() {
 
         setSupportActionBar(binding?.toolbarCreateBoardActivity)
@@ -104,8 +216,15 @@ class CreateBoardActivity : BaseActivity() {
 
         binding?.toolbarCreateBoardActivity?.setNavigationOnClickListener { onBackPressed() }
     }
+
     fun boardCreatedSuccessfully() {
         hideProgressDialog()
+        finish()
+    }
+
+    fun boardUpdateSuccess() {
+        hideProgressDialog()
+        setResult(Activity.RESULT_OK)
         finish()
     }
 }
