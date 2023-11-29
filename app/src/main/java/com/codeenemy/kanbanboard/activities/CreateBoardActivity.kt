@@ -45,8 +45,7 @@ class CreateBoardActivity : BaseActivity() {
         binding?.ivBoardImage?.setOnClickListener {
             if (ContextCompat.checkSelfPermission(
                     this, Manifest.permission.READ_EXTERNAL_STORAGE
-                )
-                == PackageManager.PERMISSION_GRANTED
+                ) == PackageManager.PERMISSION_GRANTED
             ) {
                 Constants.showImageChooser(this)
             } else {
@@ -72,11 +71,8 @@ class CreateBoardActivity : BaseActivity() {
         assignedUserArrayList.add(getCurrentUserID())
 
         var board = Board(
-            binding?.etBoardName?.text.toString(),
-            mBoardImageURL,
-            mUserName,
-            assignedUserArrayList
-            )
+            binding?.etBoardName?.text.toString(), mBoardImageURL, mUserName, assignedUserArrayList
+        )
         FirestoreClass().createBoard(this, board)
     }
 
@@ -92,14 +88,12 @@ class CreateBoardActivity : BaseActivity() {
             //getting the storage reference
             val sRef: StorageReference = FirebaseStorage.getInstance().reference.child(
                 "BOARD_IMAGE" + System.currentTimeMillis() + "." + Constants.getFileExtension(
-                    this,
-                    mSelectedImageFileUri
+                    this, mSelectedImageFileUri
                 )
             )
 
             //adding the file to reference
-            sRef.putFile(mSelectedImageFileUri!!)
-                .addOnSuccessListener { taskSnapshot ->
+            sRef.putFile(mSelectedImageFileUri!!).addOnSuccessListener { taskSnapshot ->
                     // The image upload is success
                     Log.e(
                         "Board Image URL",
@@ -107,8 +101,7 @@ class CreateBoardActivity : BaseActivity() {
                     )
 
                     // Get the downloadable url from the task snapshot
-                    taskSnapshot.metadata!!.reference!!.downloadUrl
-                        .addOnSuccessListener { uri ->
+                    taskSnapshot.metadata!!.reference!!.downloadUrl.addOnSuccessListener { uri ->
                             Log.e("Downloadable Image URL", uri.toString())
 
                             // assign the image url to the variable.
@@ -118,12 +111,9 @@ class CreateBoardActivity : BaseActivity() {
                             // Call a function to update user details in the database.
                             createBoard()
                         }
-                }
-                .addOnFailureListener { exception ->
+                }.addOnFailureListener { exception ->
                     Toast.makeText(
-                        this,
-                        exception.message,
-                        Toast.LENGTH_LONG
+                        this, exception.message, Toast.LENGTH_LONG
                     ).show()
 
                     hideProgressDialog()
@@ -161,17 +151,13 @@ class CreateBoardActivity : BaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK
-            && requestCode == Constants.PICK_IMAGE_REQUEST_CODE
-            && data!!.data != null
-        ) {
+        if (resultCode == Activity.RESULT_OK && requestCode == Constants.PICK_IMAGE_REQUEST_CODE && data!!.data != null) {
             // The uri of selection image from phone storage.
             mSelectedImageFileUri = data.data
 
             try {
                 // Load the user image in the ImageView.
-                Glide
-                    .with(this)
+                Glide.with(this)
                     .load(Uri.parse(mSelectedImageFileUri.toString())) // URI of the image
                     .centerCrop() // Scale type of the image.
                     .placeholder(R.drawable.ic_board_place_holder) // A default place holder
@@ -184,9 +170,7 @@ class CreateBoardActivity : BaseActivity() {
     }
 
     override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
+        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == Constants.READ_STORAGE_PERMISSION_CODE) {

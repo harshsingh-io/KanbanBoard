@@ -9,4 +9,7 @@
     <color name="secondary_text_color">#7A8089</color>
 
     <color name="snackbar_error_color">#F72400</color>
+
+    <color name="divider_color">#EAEAEA</color>
+
 </resources>

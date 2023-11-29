@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--TODO (Step 4: Design a recycler view item for Boards Listing.)-->
+<!--START-->
+<!--Here all the constants are added in their respective folders and files. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/item_board_content_marginBottom"
+    android:background="?attr/selectableItemBackground"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/item_board_content_padding">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_board_image"
+            android:layout_width="@dimen/item_board_image_size"
+            android:layout_height="@dimen/item_board_image_size"
+            android:contentDescription="@string/image_contentDescription"
+            android:src="@drawable/ic_board_place_holder"
+            app:civ_border_color="@color/primary_text_color"
+            app:civ_border_width="@dimen/item_board_image_circular_border_width" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/item_board_name_layout_marginStart"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primary_text_color"
+                android:textSize="@dimen/item_board_name_text_size"
+                tools:text="Board Name" />
+
+            <TextView
+                android:id="@+id/tv_created_by"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/secondary_text_color"
+                android:textSize="@dimen/item_board_created_by_text_size"
+                tools:text="Created By" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_board_divider_height"
+        android:layout_marginTop="@dimen/item_board_divider_marginTop"
+        android:background="@color/divider_color" />
+
+</LinearLayout>
+    <!--END-->

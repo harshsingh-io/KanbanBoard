@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">KanbanBoard</string>
     <string name="kanbanBoard">KanbanBoard</string>
-    <string name="sign_up">Sign up</string>
+    <string name="sign_up">SIGN UP</string>
     <string name="log_in">Log in</string>
     <string name="move_teamwork_forward_even_on_the_go">Move teamwork forward - even on the go</string>
     <string name="by_signing_up_you_agree_to_our_terms_of_services_and_privacy_policy">By signing up, you agree to our Terms of services and Privacy Policy</string>
@@ -39,8 +39,11 @@
     <string name="mobile">Mobile</string>
     <string name="update">UPDATE</string>
     <string name="my_profile">My Profile</string>
+
     <string name="adding_places">Create Board</string>
     <string name="board_name">Board Name</string>
     <string name="create">CREATE</string>
     <string name="create_board">Create Board</string>
+
+    <string name="no_boards_are_available">No Boards are available!!!</string>
 </resources>

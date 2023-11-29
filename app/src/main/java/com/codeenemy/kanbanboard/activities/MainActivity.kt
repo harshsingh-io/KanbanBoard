@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -12,11 +13,16 @@ import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.codeenemy.kanbanboard.R
+import com.codeenemy.kanbanboard.adapters.BoardItemsAdapter
 import com.codeenemy.kanbanboard.databinding.ActivityMainBinding
 import com.codeenemy.kanbanboard.databinding.AppBarMainBinding
+import com.codeenemy.kanbanboard.databinding.ContentMainBinding
 import com.codeenemy.kanbanboard.firebase.FirestoreClass
+import com.codeenemy.kanbanboard.model.Board
 import com.codeenemy.kanbanboard.model.User
 import com.codeenemy.kanbanboard.utils.Constants
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -30,33 +36,43 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
     private var binding: ActivityMainBinding? = null
     private var bindingAppBar: AppBarMainBinding? = null
+
+    //    private var bindingMainContent: ContentMainBinding? = null
     private var drawerLayout: DrawerLayout? = null
     private var navView: NavigationView? = null
     private var navUserName: TextView? = null
     private var navUserImage: ImageView? = null
     private var fabCreateBoard: FloatingActionButton? = null
     private lateinit var mUserName: String
+    private var rvBoardsList: RecyclerView? = null
+    private var tvNoBoardsAvailable: TextView? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         bindingAppBar = AppBarMainBinding.inflate(layoutInflater)
+//        bindingMainContent = ContentMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         drawerLayout = findViewById(R.id.drawer_layout)
         navView = findViewById(R.id.nav_view)
-        setupActionBar()
-        navView?.setNavigationItemSelectedListener(this)
-        navUserName = findViewById(R.id.tv_user_name)
+        navUserName = findViewById(R.id.tv_username)
         navUserImage = findViewById(R.id.iv_user_image)
         fabCreateBoard = findViewById(R.id.fabCreateBoard)
-        FirestoreClass().loadUserData(this)
+        rvBoardsList = findViewById(R.id.rv_boards_list)
+        tvNoBoardsAvailable = findViewById(R.id.tv_no_boards_available)
+        navView?.setNavigationItemSelectedListener(this)
+        setupActionBar()
+        showProgressDialog(resources.getString(R.string.please_wait))
+        FirestoreClass().loadUserData(this, true)
 
         fabCreateBoard?.setOnClickListener {
             val intent = Intent(this, CreateBoardActivity::class.java)
             intent.putExtra(Constants.NAME, mUserName)
             startActivity(intent)
         }
+
     }
 
     private fun setupActionBar() {
@@ -120,8 +136,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         return true
     }
 
-    fun updateNavigationUserDetails(user: User) {
+    fun updateNavigationUserDetails(user: User, readBoardList: Boolean) {
+        hideProgressDialog()
         mUserName = user.name
+
         val userImageView =
             binding?.navView?.getHeaderView(0)?.findViewById<ImageView>(R.id.iv_user_image)
         val usernameTextView =
@@ -129,6 +147,34 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         usernameTextView?.text = user.name
         Glide.with(this).load(user.image).centerCrop().placeholder(R.drawable.ic_user_place_holder)
             .into(userImageView!!)
+
+        if (readBoardList) {
+            showProgressDialog(resources.getString(R.string.please_wait))
+            FirestoreClass().getBoardList(this)
+        }
+    }
+
+    fun populateBoardListToUI(boardList: ArrayList<Board>) {
+        hideProgressDialog()
+        if (boardList.size > 0) {
+            rvBoardsList?.visibility = View.VISIBLE
+            tvNoBoardsAvailable?.visibility = View.GONE
+
+            rvBoardsList?.layoutManager = LinearLayoutManager(this@MainActivity)
+            rvBoardsList?.setHasFixedSize(true)
+
+            val adapter = BoardItemsAdapter(this@MainActivity, boardList)
+            rvBoardsList?.adapter = adapter
+            adapter.setOnClickListener(object :
+                BoardItemsAdapter.OnClickListener {
+                override fun onClick(position: Int, model: Board) {
+                    startActivity(Intent(this@MainActivity, TaskListActivity::class.java))
+                }
+            })
+        } else {
+            rvBoardsList?.visibility = View.GONE
+            tvNoBoardsAvailable?.visibility = View.VISIBLE
+        }
     }
 
 }

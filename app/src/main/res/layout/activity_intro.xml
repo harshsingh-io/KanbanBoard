@@ -62,10 +62,13 @@
             android:id="@+id/btnSignUp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_margin="@dimen/activity_intro_button_margin"
+            android:gravity="center"
             android:background="@drawable/sign_up_button"
+            android:foreground="?attr/selectableItemBackground"
             android:text="@string/sign_up"
-            android:textColor="@color/colorPrimaryBlue"
+            android:textColor="@color/white"
             android:textSize="@dimen/activity_intro_button_text_size"
             app:cornerRadius="8dp" />
 
