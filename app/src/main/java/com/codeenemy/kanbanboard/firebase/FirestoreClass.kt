@@ -3,14 +3,10 @@ package com.codeenemy.kanbanboard.firebase
 import android.app.Activity
 import android.util.Log
 import android.widget.Toast
-import com.codeenemy.kanbanboard.activities.CreateBoardActivity
-import com.codeenemy.kanbanboard.activities.MainActivity
-import com.codeenemy.kanbanboard.activities.MyProfileActivity
-import com.codeenemy.kanbanboard.activities.SignInActivity
+import com.codeenemy.kanbanboard.activities.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
-import com.codeenemy.kanbanboard.activities.SignUpActivity
 import com.codeenemy.kanbanboard.model.Board
 import com.codeenemy.kanbanboard.model.User
 import com.codeenemy.kanbanboard.utils.Constants
@@ -56,21 +52,21 @@ class FirestoreClass {
                 )
             }
     }
-    fun getBoardList(activity: MainActivity) {
+
+    fun getBoardsList(activity: MainActivity) {
         mFireStore.collection(Constants.BOARDS)
-            .whereArrayContains(Constants.ASSIGNED_TO, getCurrentUserID())
-            .get()
+            .whereArrayContains(Constants.ASSIGNED_TO, getCurrentUserID()).get()
             .addOnSuccessListener { document ->
-                Log.i(activity.javaClass.simpleName, document.documents.toString())
+                Log.e(activity.javaClass.simpleName, document.documents.toString())
                 val boardList: ArrayList<Board> = ArrayList()
+
                 for (i in document.documents) {
                     val board = i.toObject(Board::class.java)!!
                     board.documentId = i.id
                     boardList.add(board)
                 }
                 activity.populateBoardListToUI(boardList)
-            }
-            .addOnFailureListener { e ->
+            }.addOnFailureListener { e ->
                 activity.hideProgressDialog()
                 Log.e(
                     activity.javaClass.simpleName, "Error while creating a board.", e
@@ -153,6 +149,7 @@ class FirestoreClass {
                 )
             }
     }
+
     fun updateBoardData(activity: CreateBoardActivity, userHashMap: HashMap<String, Any>) {
         mFireStore.collection(Constants.USERS) // Collection Name
             .document(getCurrentUserID()) // Document ID
@@ -177,7 +174,7 @@ class FirestoreClass {
      * A function for getting the user id of current logged user.
      */
     fun getCurrentUserID(): String {
-        var currentUser = FirebaseAuth.getInstance().currentUser
+        val currentUser = FirebaseAuth.getInstance().currentUser
         var currentUserID = ""
         if (currentUser != null) {
             currentUserID = currentUser.uid

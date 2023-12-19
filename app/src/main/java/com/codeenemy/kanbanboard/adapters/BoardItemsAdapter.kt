@@ -2,6 +2,7 @@ package com.codeenemy.kanbanboard.adapters
 
 import android.content.Context
 import android.media.Image
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,7 +28,9 @@ open class BoardItemsAdapter(private val context: Context, private var list: Arr
 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        Log.d("Adapter", "onBindViewHolder called for position $position")
         val model = list[position]
+        Log.d("Adapter", "Model at position $position: $model")
         if (holder is MyViewHolder) {
             Glide
                 .with(context)
@@ -55,5 +58,4 @@ open class BoardItemsAdapter(private val context: Context, private var list: Arr
     }
 
     private class MyViewHolder(view: View): RecyclerView.ViewHolder(view)
-
 }

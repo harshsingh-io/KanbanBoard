@@ -5,7 +5,6 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.MediaStore
 import android.webkit.MimeTypeMap
-import com.codeenemy.kanbanboard.activities.MyProfileActivity
 
 // TODO (Step 7: Create a constants object and make an users collection constant value.)
 // START
