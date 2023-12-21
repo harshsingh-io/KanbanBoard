@@ -22,7 +22,7 @@ object Constants {
     const val ASSIGNED_TO: String = "assignedTo"
     const val READ_STORAGE_PERMISSION_CODE = 1
     const val PICK_IMAGE_REQUEST_CODE = 2
-
+    const val DOCUMENT_ID : String = "documentId"
 
     fun showImageChooser(activity: Activity) {
         // An intent for launching the image selection of phone storage.

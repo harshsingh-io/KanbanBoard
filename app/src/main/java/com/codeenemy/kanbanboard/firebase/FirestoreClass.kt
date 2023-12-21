@@ -19,26 +19,60 @@ class FirestoreClass {
     // Create a instance of Firebase Firestore
     private val mFireStore = FirebaseFirestore.getInstance()
 
-    /**
-     * A function to make an entry of the registered user in the firestore database.
-     */
-    fun registerUser(activity: SignUpActivity, userInfo: User) {
+    fun getBoardDetails(activity: TaskListActivity, documentId: String){
+        mFireStore.collection(Constants.BOARDS)
+            .document(documentId)
+            .get()
+            .addOnSuccessListener { document ->
+                Log.e(activity.javaClass.simpleName, document.toString())
+                activity.boardDetails(document.toObject(Board::class.java)!!)
 
-        mFireStore.collection(Constants.USERS)
-            // Document ID for users fields. Here the document it is the User ID.
-            .document(getCurrentUserID())
-            // Here the userInfo are Field and the SetOption is set to merge. It is for if we wants to merge
-            .set(userInfo, SetOptions.merge()).addOnSuccessListener {
-
-                // Here call a function of base activity for transferring the result to it.
-                activity.userRegisteredSuccess()
             }.addOnFailureListener { e ->
+                activity.hideProgressDialog()
                 Log.e(
-                    activity.javaClass.simpleName, "Error writing document", e
+                    activity.javaClass.simpleName, "Error while creating a board.", e
                 )
             }
     }
+    fun updateBoardData(activity: CreateBoardActivity, userHashMap: HashMap<String, Any>) {
+        mFireStore.collection(Constants.USERS) // Collection Name
+            .document(getCurrentUserID()) // Document ID
+            .update(userHashMap) // A hashmap of fields which are to be updated.
+            .addOnSuccessListener {
+                // Profile data is updated successfully.
+                Log.e(activity.javaClass.simpleName, "Profile Data updated successfully!")
 
+                Toast.makeText(activity, "Profile updated successfully!", Toast.LENGTH_SHORT).show()
+
+                // Notify the success result.
+                activity.boardUpdateSuccess()
+            }.addOnFailureListener { e ->
+                activity.hideProgressDialog()
+                Log.e(
+                    activity.javaClass.simpleName, "Error while creating a board.", e
+                )
+            }
+    }
+    fun getBoardsList(activity: MainActivity) {
+        mFireStore.collection(Constants.BOARDS)
+            .whereArrayContains(Constants.ASSIGNED_TO, getCurrentUserID()).get()
+            .addOnSuccessListener { document ->
+                Log.e(activity.javaClass.simpleName, document.documents.toString())
+                val boardList: ArrayList<Board> = ArrayList()
+
+                for (i in document.documents) {
+                    val board = i.toObject(Board::class.java)!!
+                    board.documentId = i.id
+                    boardList.add(board)
+                }
+                activity.populateBoardListToUI(boardList)
+            }.addOnFailureListener { e ->
+                activity.hideProgressDialog()
+                Log.e(
+                    activity.javaClass.simpleName, "Error while creating a board.", e
+                )
+            }
+    }
     fun createBoard(activity: CreateBoardActivity, board: Board) {
         mFireStore.collection(Constants.BOARDS).document().set(board, SetOptions.merge())
             .addOnSuccessListener {
@@ -53,19 +87,21 @@ class FirestoreClass {
             }
     }
 
-    fun getBoardsList(activity: MainActivity) {
-        mFireStore.collection(Constants.BOARDS)
-            .whereArrayContains(Constants.ASSIGNED_TO, getCurrentUserID()).get()
-            .addOnSuccessListener { document ->
-                Log.e(activity.javaClass.simpleName, document.documents.toString())
-                val boardList: ArrayList<Board> = ArrayList()
+    /**
+     * A function to update the user profile data into the database.
+     */
+    fun updateUserProfileData(activity: MyProfileActivity, userHashMap: HashMap<String, Any>) {
+        mFireStore.collection(Constants.USERS) // Collection Name
+            .document(getCurrentUserID()) // Document ID
+            .update(userHashMap) // A hashmap of fields which are to be updated.
+            .addOnSuccessListener {
+                // Profile data is updated successfully.
+                Log.e(activity.javaClass.simpleName, "Profile Data updated successfully!")
 
-                for (i in document.documents) {
-                    val board = i.toObject(Board::class.java)!!
-                    board.documentId = i.id
-                    boardList.add(board)
-                }
-                activity.populateBoardListToUI(boardList)
+                Toast.makeText(activity, "Profile updated successfully!", Toast.LENGTH_SHORT).show()
+
+                // Notify the success result.
+                activity.profileUpdateSuccess()
             }.addOnFailureListener { e ->
                 activity.hideProgressDialog()
                 Log.e(
@@ -116,7 +152,6 @@ class FirestoreClass {
                     is SignInActivity -> {
                         activity.hideProgressDialog()
                     }
-
                     is MainActivity -> {
                         activity.hideProgressDialog()
                     }
@@ -126,46 +161,23 @@ class FirestoreClass {
                 )
             }
     }
-    // END
+
     /**
-     * A function to update the user profile data into the database.
+     * A function to make an entry of the registered user in the firestore database.
      */
-    fun updateUserProfileData(activity: MyProfileActivity, userHashMap: HashMap<String, Any>) {
-        mFireStore.collection(Constants.USERS) // Collection Name
-            .document(getCurrentUserID()) // Document ID
-            .update(userHashMap) // A hashmap of fields which are to be updated.
-            .addOnSuccessListener {
-                // Profile data is updated successfully.
-                Log.e(activity.javaClass.simpleName, "Profile Data updated successfully!")
+    fun registerUser(activity: SignUpActivity, userInfo: User) {
 
-                Toast.makeText(activity, "Profile updated successfully!", Toast.LENGTH_SHORT).show()
+        mFireStore.collection(Constants.USERS)
+            // Document ID for users fields. Here the document it is the User ID.
+            .document(getCurrentUserID())
+            // Here the userInfo are Field and the SetOption is set to merge. It is for if we wants to merge
+            .set(userInfo, SetOptions.merge()).addOnSuccessListener {
 
-                // Notify the success result.
-                activity.profileUpdateSuccess()
+                // Here call a function of base activity for transferring the result to it.
+                activity.userRegisteredSuccess()
             }.addOnFailureListener { e ->
-                activity.hideProgressDialog()
                 Log.e(
-                    activity.javaClass.simpleName, "Error while creating a board.", e
-                )
-            }
-    }
-
-    fun updateBoardData(activity: CreateBoardActivity, userHashMap: HashMap<String, Any>) {
-        mFireStore.collection(Constants.USERS) // Collection Name
-            .document(getCurrentUserID()) // Document ID
-            .update(userHashMap) // A hashmap of fields which are to be updated.
-            .addOnSuccessListener {
-                // Profile data is updated successfully.
-                Log.e(activity.javaClass.simpleName, "Profile Data updated successfully!")
-
-                Toast.makeText(activity, "Profile updated successfully!", Toast.LENGTH_SHORT).show()
-
-                // Notify the success result.
-                activity.boardUpdateSuccess()
-            }.addOnFailureListener { e ->
-                activity.hideProgressDialog()
-                Log.e(
-                    activity.javaClass.simpleName, "Error while creating a board.", e
+                    activity.javaClass.simpleName, "Error writing document", e
                 )
             }
     }
