@@ -124,30 +124,30 @@ class CreateBoardActivity : BaseActivity() {
     /**
      * A function to update the user profile details into the database.
      */
-//    private fun updateBoardData() {
-//
-//        val userHashMap = HashMap<String, Any>()
-////        var anyChangesMade = false
-//
-//        if (mBoardImageURL.isNotEmpty() && mBoardImageURL != mBoardDetails.image) {
-//            userHashMap[Constants.IMAGE] = mBoardImageURL
+    private fun updateBoardData() {
+
+        val userHashMap = HashMap<String, Any>()
+//        var anyChangesMade = false
+
+        if (mBoardImageURL.isNotEmpty() && mBoardImageURL != mBoardDetails.image) {
+            userHashMap[Constants.IMAGE] = mBoardImageURL
+//            anyChangesMade = true
+        }
+
+        if (binding?.etBoardName?.text.toString() != mBoardDetails.name) {
+            userHashMap[Constants.NAME] = binding?.etBoardName?.text.toString()
+//            anyChangesMade = true
+
+        }
+
+//        if (binding?.etMobile?.text.toString() != mUserDetails.mobile.toString()) {
+//            userHashMap[Constants.MOBILE] = binding?.etMobile?.text.toString().toLong()
 ////            anyChangesMade = true
 //        }
-//
-//        if (binding?.etBoardName?.text.toString() != mBoardDetails.name) {
-//            userHashMap[Constants.NAME] = binding?.etBoardName?.text.toString()
-////            anyChangesMade = true
-//
-//        }
-//
-////        if (binding?.etMobile?.text.toString() != mUserDetails.mobile.toString()) {
-////            userHashMap[Constants.MOBILE] = binding?.etMobile?.text.toString().toLong()
-//////            anyChangesMade = true
-////        }
-//
-//        // Update the data in the database.
-//        FirestoreClass().updateBoardData(this, userHashMap)
-//    }
+
+        // Update the data in the database.
+        FirestoreClass().updateBoardData(this, userHashMap)
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

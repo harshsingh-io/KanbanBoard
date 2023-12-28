@@ -1,12 +1,15 @@
 package com.codeenemy.kanbanboard.activities
 
+import TaskListItemsAdapter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.codeenemy.kanbanboard.R
 import com.codeenemy.kanbanboard.databinding.ActivityTaskListBinding
 import com.codeenemy.kanbanboard.firebase.FirestoreClass
 import com.codeenemy.kanbanboard.model.Board
+import com.codeenemy.kanbanboard.model.Task
 import com.codeenemy.kanbanboard.utils.Constants
 
 class TaskListActivity : BaseActivity() {
@@ -28,6 +31,16 @@ class TaskListActivity : BaseActivity() {
     fun boardDetails(board: Board) {
         hideProgressDialog()
         setupActionBar(board.name )
+        val addTaskList = Task(resources.getString(R.string.add_list))
+        board.taskList.add(addTaskList)
+
+        binding?.rvTaskList?.layoutManager = LinearLayoutManager(this, LinearLayoutManager
+            .HORIZONTAL,
+            false)
+        binding?.rvTaskList?.setHasFixedSize(true)
+
+        val adapter = TaskListItemsAdapter(this, board.taskList)
+        binding?.rvTaskList?.adapter = adapter
     }
 
     private fun setupActionBar(title: String) {
