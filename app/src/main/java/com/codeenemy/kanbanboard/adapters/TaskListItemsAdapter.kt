@@ -1,10 +1,14 @@
+import android.app.AlertDialog
 import android.content.Context
 import android.content.res.Resources
+import android.opengl.Visibility
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.codeenemy.kanbanboard.activities.TaskListActivity
 import com.codeenemy.kanbanboard.databinding.ItemTaskBinding
 import com.codeenemy.kanbanboard.model.Task
 
@@ -14,6 +18,10 @@ open class TaskListItemsAdapter(
     private val context: Context,
     private var list: ArrayList<Task>
 ) : RecyclerView.Adapter<TaskListItemsAdapter.ViewHolder>() {
+
+    /**
+     * A ViewHolder describes an item view and metadata about its place within the RecyclerView.
+     */
     inner class ViewHolder(val binding: ItemTaskBinding) : RecyclerView.ViewHolder(binding.root)
 
     /**
@@ -51,7 +59,7 @@ open class TaskListItemsAdapter(
      */
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        with(holder){
+        with(holder) {
             with(list[position]) {
                 val model = list[position]
                 if (position == list.size - 1) {
@@ -61,9 +69,52 @@ open class TaskListItemsAdapter(
                     holder.binding.tvAddTaskList.visibility = View.GONE
                     holder.binding.llTaskItem.visibility = View.VISIBLE
                 }
+                holder.binding.tvTaskListTitle.text = model.title
+                holder.binding.tvAddTaskList.setOnClickListener {
+                    holder.binding.tvAddTaskList.visibility = View.GONE
+                    holder.binding.cvAddTaskListName.visibility = View.VISIBLE
+                }
+                holder.binding.ibDoneListName.setOnClickListener{
+                    val listName = holder.binding.etTaskListName.text.toString()
+                    if (listName.isNotEmpty()){
+                        if (context is TaskListActivity) {
+                            context.createList(listName)
+                        }
+                    } else {
+                        Toast.makeText(context, "Please Enter List Name.", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                holder.binding.ibCloseListName.setOnClickListener {
+                    holder.binding.tvAddTaskList.visibility = View.VISIBLE
+                    holder.binding.cvAddTaskListName.visibility = View.GONE
+                }
+                holder.binding.ibEditListName.setOnClickListener {
+
+                    holder.binding.etEditTaskListName.setText(model.title) // Set the
+                    // existing title
+                    holder.binding.llTitleView.visibility = View.GONE
+                    holder.binding.cvEditTaskListName.visibility = View.VISIBLE
+                }
+                holder.binding.ibCloseEditableView.setOnClickListener {
+                    holder.binding.llTitleView.visibility = View.VISIBLE
+                    holder.binding.cvEditTaskListName.visibility = View.GONE
+                }
+                holder.binding.ibDoneEditListName.setOnClickListener {
+                    val listName = holder.binding.etEditTaskListName.text.toString()
+
+                    if (listName.isNotEmpty()) {
+                        if (context is TaskListActivity) {
+                            context.updateTaskList(position, listName, model)
+                        }
+                    } else {
+                        Toast.makeText(context, "Please Enter List Name.", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                holder.binding.ibDeleteList.setOnClickListener {
+                    alertDialogForDeleteList(position, model.title)
+                }
             }
         }
-
     }
 
     /**
@@ -82,11 +133,36 @@ open class TaskListItemsAdapter(
     /**
      * A function to get pixel from density pixel
      */
-    private fun Int.toPx(): Int =
-        (this * Resources.getSystem().displayMetrics.density).toInt()
+    private fun Int.toPx(): Int = (this * Resources.getSystem().displayMetrics.density).toInt()
 
     /**
-     * A ViewHolder describes an item view and metadata about its place within the RecyclerView.
+     * Method is used to show the Alert Dialog for deleting the task list.
      */
+    private fun alertDialogForDeleteList(position: Int, title: String) {
+        val builder = AlertDialog.Builder(context)
+        //set title for alert dialog
+        builder.setTitle("Alert")
+        //set message for alert dialog
+        builder.setMessage("Are you sure you want to delete $title.")
+        builder.setIcon(android.R.drawable.ic_dialog_alert)
+        //performing positive action
+        builder.setPositiveButton("Yes") { dialogInterface, which ->
+            dialogInterface.dismiss() // Dialog will be dismissed
+
+            if (context is TaskListActivity) {
+                context.deleteTaskList(position)
+            }
+        }
+
+        //performing negative action
+        builder.setNegativeButton("No") { dialogInterface, which ->
+            dialogInterface.dismiss() // Dialog will be dismissed
+        }
+        // Create the AlertDialog
+        val alertDialog: AlertDialog = builder.create()
+        // Set other dialog properties
+        alertDialog.setCancelable(false) // Will not allow user to cancel after clicking on remaining screen area.
+        alertDialog.show()  // show the dialog to UI
+    }
+
 }
-// END

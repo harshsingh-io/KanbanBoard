@@ -14,6 +14,7 @@ import com.codeenemy.kanbanboard.utils.Constants
 
 class TaskListActivity : BaseActivity() {
     private var binding: ActivityTaskListBinding? = null
+    private lateinit var mBoardDetails: Board
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,9 +29,18 @@ class TaskListActivity : BaseActivity() {
         FirestoreClass().getBoardDetails(this, boardDocumentId)
     }
 
+    fun createList(taskListName: String) {
+        val task = Task(taskListName, FirestoreClass().getCurrentUserID())
+        mBoardDetails.taskList.add(0, task)
+        mBoardDetails.taskList.removeAt(mBoardDetails.taskList.size - 1)
+
+        showProgressDialog(resources.getString(R.string.please_wait))
+        FirestoreClass().addUpdateTaskList(this, mBoardDetails)
+    }
     fun boardDetails(board: Board) {
+        mBoardDetails = board
         hideProgressDialog()
-        setupActionBar(board.name )
+        setupActionBar()
         val addTaskList = Task(resources.getString(R.string.add_list))
         board.taskList.add(addTaskList)
 
@@ -42,14 +52,41 @@ class TaskListActivity : BaseActivity() {
         val adapter = TaskListItemsAdapter(this, board.taskList)
         binding?.rvTaskList?.adapter = adapter
     }
+    fun addUpdateTaskListSuccess() {
+        hideProgressDialog()
+        // Here get the updated board details.
+        // Show the progress dialog.
+        showProgressDialog(resources.getString(R.string.please_wait))
+        FirestoreClass().getBoardDetails(this@TaskListActivity, mBoardDetails.documentId)
+    }
+    fun deleteTaskList(position: Int) {
 
-    private fun setupActionBar(title: String) {
+        mBoardDetails.taskList.removeAt(position)
+
+        mBoardDetails.taskList.removeAt(mBoardDetails.taskList.size - 1)
+
+        // Show the progress dialog.
+        showProgressDialog(resources.getString(R.string.please_wait))
+        FirestoreClass().addUpdateTaskList(this@TaskListActivity, mBoardDetails)
+    }
+    fun updateTaskList(position: Int, listName: String, model: Task) {
+        val task = Task(listName, model.createdBy)
+
+        mBoardDetails.taskList[position] = task
+        mBoardDetails.taskList.removeAt(mBoardDetails.taskList.size - 1)
+
+        // Show the progress dialog.
+        showProgressDialog(resources.getString(R.string.please_wait))
+        FirestoreClass().addUpdateTaskList(this@TaskListActivity, mBoardDetails)
+    }
+
+    private fun setupActionBar() {
         setSupportActionBar(binding?.toolbarTaskListActivity)
         val actionBar = supportActionBar
         if (actionBar!=null) {
             actionBar.setDisplayHomeAsUpEnabled(true)
             actionBar.setHomeAsUpIndicator(R.drawable.ic_white_color_back_24dp)
-            actionBar.title = title
+            actionBar.title = mBoardDetails.name
         }
 
         binding?.toolbarTaskListActivity?.setNavigationOnClickListener {
