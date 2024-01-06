@@ -1,12 +1,14 @@
+package com.codeenemy.kanbanboard.adapters
+
 import android.app.AlertDialog
 import android.content.Context
 import android.content.res.Resources
-import android.opengl.Visibility
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.codeenemy.kanbanboard.activities.TaskListActivity
 import com.codeenemy.kanbanboard.databinding.ItemTaskBinding
@@ -15,9 +17,10 @@ import com.codeenemy.kanbanboard.model.Task
 // TODO (Step 5: Create an adapter class for Task List Items in the TaskListActivity.)
 // START
 open class TaskListItemsAdapter(
-    private val context: Context,
-    private var list: ArrayList<Task>
+    private val context: Context, private var list: ArrayList<Task>
 ) : RecyclerView.Adapter<TaskListItemsAdapter.ViewHolder>() {
+
+    private var onClickListener: TaskListItemsAdapter.OnClickListener? = null
 
     /**
      * A ViewHolder describes an item view and metadata about its place within the RecyclerView.
@@ -37,8 +40,7 @@ open class TaskListItemsAdapter(
         val binding = ItemTaskBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         // Here the layout params are converted dynamically according to the screen size as width is 70% and height is wrap_content.
         val layoutParams = LinearLayout.LayoutParams(
-            (parent.width * 0.7).toInt(),
-            LinearLayout.LayoutParams.WRAP_CONTENT
+            (parent.width * 0.7).toInt(), LinearLayout.LayoutParams.WRAP_CONTENT
         )
         // Here the dynamic margins are applied to the view.
         layoutParams.setMargins((15.toDp()).toPx(), 0, (40.toDp()).toPx(), 0)
@@ -59,9 +61,11 @@ open class TaskListItemsAdapter(
      */
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val currentPosition = holder.adapterPosition
+        val model = list[position]
         with(holder) {
             with(list[position]) {
-                val model = list[position]
+
                 if (position == list.size - 1) {
                     holder.binding.tvAddTaskList.visibility = View.VISIBLE
                     holder.binding.llTaskItem.visibility = View.GONE
@@ -74,14 +78,15 @@ open class TaskListItemsAdapter(
                     holder.binding.tvAddTaskList.visibility = View.GONE
                     holder.binding.cvAddTaskListName.visibility = View.VISIBLE
                 }
-                holder.binding.ibDoneListName.setOnClickListener{
+                holder.binding.ibDoneListName.setOnClickListener {
                     val listName = holder.binding.etTaskListName.text.toString()
-                    if (listName.isNotEmpty()){
+                    if (listName.isNotEmpty()) {
                         if (context is TaskListActivity) {
                             context.createList(listName)
                         }
                     } else {
-                        Toast.makeText(context, "Please Enter List Name.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Please Enter List Name.", Toast.LENGTH_SHORT)
+                            .show()
                     }
                 }
                 holder.binding.ibCloseListName.setOnClickListener {
@@ -107,12 +112,45 @@ open class TaskListItemsAdapter(
                             context.updateTaskList(position, listName, model)
                         }
                     } else {
-                        Toast.makeText(context, "Please Enter List Name.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Please Enter List Name.", Toast.LENGTH_SHORT)
+                            .show()
                     }
                 }
                 holder.binding.ibDeleteList.setOnClickListener {
                     alertDialogForDeleteList(position, model.title)
                 }
+
+                holder.binding.tvAddCard.setOnClickListener {
+                    holder.binding.tvAddCard.visibility = View.GONE
+                    holder.binding.cvAddCard.visibility = View.VISIBLE
+                }
+                holder.binding.ibCloseCardName.setOnClickListener {
+                    holder.binding.tvAddCard.visibility = View.VISIBLE
+                    holder.binding.cvAddCard.visibility = View.GONE
+                }
+                holder.binding.ibDoneCardName.setOnClickListener {
+                    val cardName = holder.binding.etCardName.text.toString()
+                    if (cardName.isNotEmpty()) {
+                        if (context is TaskListActivity) {
+                            context.addCardToTaskList(holder.adapterPosition, cardName)
+                        }
+                    } else {
+                        Toast.makeText(context, "Please Enter Card Name.", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
+                holder.binding.rvCardList.layoutManager = LinearLayoutManager(context)
+                holder.binding.rvCardList.setHasFixedSize(true)
+                val adapter = CardListItemsAdapter(context, model.cards)
+                holder.binding.rvCardList.adapter = adapter
+//                adapter.setOnClickListener(object : CardListItemsAdapter.OnClickListener {
+//                    override fun onClick(cardPosition: Int) {
+//
+//                        if (context is TaskListActivity) {
+//                            context.cardDetails(position, cardPosition)
+//                        }
+//                    }
+//                })
             }
         }
     }
@@ -125,10 +163,23 @@ open class TaskListItemsAdapter(
     }
 
     /**
+     * A function for OnClickListener where the Interface is the expected parameter..
+     */
+    fun setOnClickListener(onClickListener: OnClickListener) {
+        this.onClickListener = onClickListener
+    }
+
+    /**
+     * An interface for onclick items.
+     */
+    interface OnClickListener {
+        fun onClick(position: Int, task: Task)
+    }
+
+    /**
      * A function to get density pixel from pixel
      */
-    private fun Int.toDp(): Int =
-        (this / Resources.getSystem().displayMetrics.density).toInt()
+    private fun Int.toDp(): Int = (this / Resources.getSystem().displayMetrics.density).toInt()
 
     /**
      * A function to get pixel from density pixel
@@ -164,5 +215,4 @@ open class TaskListItemsAdapter(
         alertDialog.setCancelable(false) // Will not allow user to cancel after clicking on remaining screen area.
         alertDialog.show()  // show the dialog to UI
     }
-
 }

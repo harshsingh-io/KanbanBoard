@@ -1,17 +1,14 @@
 package com.codeenemy.kanbanboard.adapters
 
 import android.content.Context
-import android.media.Image
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.codeenemy.kanbanboard.R
-import com.codeenemy.kanbanboard.databinding.ItemBoardBinding
 import com.codeenemy.kanbanboard.model.Board
 
 open class BoardItemsAdapter(private val context: Context, private var list: ArrayList<Board>) :

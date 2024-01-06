@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--TODO (Step 6: Create a menu file for TaskListActivity scree along with the action item.)-->
+<!--START-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_members"
+        android:orderInCategory="100"
+        android:title="@string/members"
+        app:showAsAction="never" />
+</menu>
+<!--END-->

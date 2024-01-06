@@ -14,10 +14,17 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.KanbanBoard"
         tools:targetApi="31">
+        <activity
+            android:name=".activities.CardDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.MembersActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.TaskListActivity"
             android:exported="false"

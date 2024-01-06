@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">KanbanBoard</string>
-    <string name="kanbanBoard">KanbanBoard</string>
+    <string name="app_name">Trello</string>
+    <string name="kanbanBoard">Trello</string>
     <string name="sign_up">SIGN UP</string>
     <string name="log_in">Log in</string>
     <string name="move_teamwork_forward_even_on_the_go">Move teamwork forward - even on the go</string>
@@ -52,4 +52,18 @@
     <string name="action_add_card">Add Card</string>
     <string name="hint_card_name">Card Name</string>
     <string name="add_list">Add List</string>
+
+    <string name="members">Members</string>
+
+    <string name="add_member">Add Member</string>
+    <string name="cancel">CANCEL</string>
+    <string name="add">ADD</string>
+    <string name="search_member">Search Member</string>
+
+    <string name="label_color">Label Color</string>
+    <string name="select_color">Select Color</string>
+    <string name="select_members">Select Members</string>
+    <string name="due_date">Due Date</string>
+    <string name="select_due_date">Select Due Date</string>
+
 </resources>
