@@ -21,13 +21,15 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:gravity="center">
 
             <ImageView
                 android:id="@+id/appLogo"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/trello_icon_white" />
+                android:src="@drawable/trello_icon_white"
+                android:contentDescription="@string/app_logo" />
 
             <TextView
                 android:id="@+id/tvAppName"
@@ -45,7 +47,8 @@
             android:layout_width="match_parent"
             android:layout_height="400dp"
             android:layout_marginTop="@dimen/spash_screen_title_marginTop"
-            android:src="@drawable/illustration" />
+            android:src="@drawable/illustration"
+            android:contentDescription="@string/image_description" />
 
         <TextView
             android:id="@+id/textView2"
@@ -64,9 +67,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="@dimen/activity_intro_button_margin"
-            android:gravity="center"
             android:background="@drawable/sign_up_button"
-            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
             android:text="@string/sign_up"
             android:textColor="@color/white"
             android:textSize="@dimen/activity_intro_button_text_size"
@@ -105,8 +107,6 @@
             android:textColor="@color/white"
             android:textSize="@dimen/activity_intro_terms_and_conditions_text_size"
             android:textStyle="bold" />
-
-
     </LinearLayout>
 
 

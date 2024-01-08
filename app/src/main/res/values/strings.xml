@@ -2,7 +2,7 @@
     <string name="app_name">Trello</string>
     <string name="kanbanBoard">Trello</string>
     <string name="sign_up">SIGN UP</string>
-    <string name="log_in">Log in</string>
+    <string name="log_in">LOG IN</string>
     <string name="move_teamwork_forward_even_on_the_go">Move teamwork forward - even on the go</string>
     <string name="by_signing_up_you_agree_to_our_terms_of_services_and_privacy_policy">By signing up, you agree to our Terms of services and Privacy Policy</string>
     <string name="contact_us">Contact support</string>
@@ -65,5 +65,7 @@
     <string name="select_members">Select Members</string>
     <string name="due_date">Due Date</string>
     <string name="select_due_date">Select Due Date</string>
+    <string name="image_description">Image Description</string>
+    <string name="app_logo">App Logo</string>
 
 </resources>
