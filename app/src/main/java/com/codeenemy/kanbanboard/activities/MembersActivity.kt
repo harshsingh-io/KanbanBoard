@@ -147,7 +147,7 @@ class MembersActivity : BaseActivity() {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true)
             actionBar.setHomeAsUpIndicator(R.drawable.ic_white_color_back_24dp)
-            actionBar.title = resources.getString(R.string.my_profile)
+            actionBar.title = resources.getString(R.string.members)
         }
 
         binding?.toolbarMembersActivity?.setNavigationOnClickListener { onBackPressed() }
