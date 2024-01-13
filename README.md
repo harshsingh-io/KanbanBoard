@@ -4,7 +4,7 @@
 
 <p id="description">Trello is the flexible work management tool that empowers all teams to plan track and accomplish their work their way. Whether you’re planning a website design project managing weekly meetings or onboarding a new employee Trello is infinitely customizable and flexible for every type of work.</p>
 
-<h2>🚀 Demo</h2>
+<h2>Demo</h2>
 
 <img src="https://github.com/harshsingh-io/KanbanBoard/blob/main/Sample/6111716377486167931.gif" alt="project-screenshot" width="180" height="400">
 
