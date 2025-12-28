@@ -29,7 +29,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/trello_icon_white"
-                android:contentDescription="@string/app_logo" />
+                android:contentDescription="@string/cd_app_logo" />
 
             <TextView
                 android:id="@+id/tvAppName"
@@ -48,7 +48,7 @@
             android:layout_height="400dp"
             android:layout_marginTop="@dimen/spash_screen_title_marginTop"
             android:src="@drawable/illustration"
-            android:contentDescription="@string/image_description" />
+            android:contentDescription="@string/cd_intro_illustration" />
 
         <TextView
             android:id="@+id/textView2"
