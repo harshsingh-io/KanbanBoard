@@ -70,8 +70,9 @@
                         android:id="@+id/et_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:autofillHints="name"
                         android:hint="@string/name"
-                        android:inputType="textEmailAddress"
+                        android:inputType="textPersonName"
                         android:textSize="@dimen/et_text_size" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -89,6 +90,7 @@
                         android:id="@+id/et_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:autofillHints="emailAddress"
                         android:hint="@string/email"
                         android:inputType="textEmailAddress"
                         android:textSize="@dimen/et_text_size" />
@@ -108,6 +110,7 @@
                         android:id="@+id/et_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:autofillHints="password"
                         android:hint="@string/password"
                         android:inputType="textPassword"
                         android:textSize="16sp" />
