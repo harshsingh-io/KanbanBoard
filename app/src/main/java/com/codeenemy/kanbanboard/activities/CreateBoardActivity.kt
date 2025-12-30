@@ -57,12 +57,25 @@ class CreateBoardActivity : BaseActivity() {
             }
         }
         binding?.btnCreate?.setOnClickListener {
-            if (mSelectedImageFileUri != null) {
-                uploadBoardImage()
+            createBoardAction()
+        }
+
+        binding?.etBoardName?.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_DONE) {
+                createBoardAction()
+                true
             } else {
-                showProgressDialog(resources.getString(R.string.please_wait))
-                createBoard()
+                false
             }
+        }
+    }
+
+    private fun createBoardAction() {
+        if (mSelectedImageFileUri != null) {
+            uploadBoardImage()
+        } else {
+            showProgressDialog(resources.getString(R.string.please_wait))
+            createBoard()
         }
     }
 

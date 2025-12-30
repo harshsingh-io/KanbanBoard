@@ -34,6 +34,7 @@
     <string name="nav_my_profile">My Profile</string>
     <string name="nav_sign_out">Sign Out</string>
     <string name="image_contentDescription">Image</string>
+    <string name="cd_board_image_picker">Select board cover image</string>
     <string name="username">Username</string>
 
     <string name="mobile">Mobile</string>
