@@ -22,6 +22,15 @@ class SignUpActivity : BaseActivity() {
         binding?.btnSignUp?.setOnClickListener {
             registerUser()
         }
+
+        binding?.etPassword?.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_DONE) {
+                registerUser()
+                true
+            } else {
+                false
+            }
+        }
     }
 
     private fun setupActionBar() {
