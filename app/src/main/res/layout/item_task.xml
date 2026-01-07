@@ -47,7 +47,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
-                    android:contentDescription="@string/image_contentDescription"
+                    android:contentDescription="@string/cd_cancel_add_list"
                     android:padding="@dimen/task_item_image_buttons_padding"
                     android:src="@drawable/ic_cancel" />
 
@@ -65,7 +65,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
-                    android:contentDescription="@string/image_contentDescription"
+                    android:contentDescription="@string/cd_confirm_add_list"
                     android:padding="@dimen/task_item_image_buttons_padding"
                     android:src="@drawable/ic_done" />
             </LinearLayout>
@@ -107,7 +107,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
-                    android:contentDescription="@string/image_contentDescription"
+                    android:contentDescription="@string/cd_edit_list_name"
                     android:padding="@dimen/task_item_image_buttons_padding"
                     android:src="@drawable/ic_edit" />
 
@@ -116,7 +116,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
-                    android:contentDescription="@string/image_contentDescription"
+                    android:contentDescription="@string/cd_delete_list"
                     android:padding="@dimen/task_item_image_buttons_padding"
                     android:src="@drawable/ic_delete" />
             </LinearLayout>
@@ -147,7 +147,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="?attr/selectableItemBackground"
-                        android:contentDescription="@string/image_contentDescription"
+                        android:contentDescription="@string/cd_cancel_edit_list"
                         android:padding="@dimen/task_item_image_buttons_padding"
                         android:src="@drawable/ic_cancel" />
 
@@ -165,7 +165,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="?attr/selectableItemBackground"
-                        android:contentDescription="@string/image_contentDescription"
+                        android:contentDescription="@string/cd_save_list_name"
                         android:padding="@dimen/task_item_image_buttons_padding"
                         android:src="@drawable/ic_done" />
                 </LinearLayout>
@@ -198,7 +198,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="?attr/selectableItemBackground"
-                        android:contentDescription="@string/image_contentDescription"
+                        android:contentDescription="@string/cd_cancel_add_card"
                         android:padding="@dimen/task_item_image_buttons_padding"
                         android:src="@drawable/ic_cancel" />
 
@@ -216,7 +216,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="?attr/selectableItemBackground"
-                        android:contentDescription="@string/image_contentDescription"
+                        android:contentDescription="@string/cd_confirm_add_card"
                         android:padding="@dimen/task_item_image_buttons_padding"
                         android:src="@drawable/ic_done" />
                 </LinearLayout>
