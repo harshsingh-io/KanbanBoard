@@ -72,7 +72,7 @@
                         android:layout_height="wrap_content"
                         android:autofillHints="name"
                         android:hint="@string/name"
-                        android:inputType="textPersonName"
+                        android:inputType="textPersonName|textCapWords"
                         android:textSize="@dimen/et_text_size" />
                 </com.google.android.material.textfield.TextInputLayout>
 

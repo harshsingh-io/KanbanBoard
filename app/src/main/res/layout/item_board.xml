@@ -22,7 +22,7 @@
             android:id="@+id/iv_board_image"
             android:layout_width="@dimen/item_board_image_size"
             android:layout_height="@dimen/item_board_image_size"
-            android:contentDescription="@string/image_contentDescription"
+            android:importantForAccessibility="no"
             android:src="@drawable/ic_board_place_holder"
             app:civ_border_color="@color/primary_text_color"
             app:civ_border_width="@dimen/item_board_image_circular_border_width" />
