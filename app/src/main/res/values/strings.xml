@@ -65,8 +65,8 @@
     <string name="select_members">Select Members</string>
     <string name="due_date">Due Date</string>
     <string name="select_due_date">Select Due Date</string>
-    <string name="image_description">Image Description</string>
-    <string name="app_logo">App Logo</string>
+    <string name="cd_intro_illustration">Teamwork illustration</string>
+    <string name="cd_app_logo">Trello Logo</string>
 
     <string name="cd_cancel_add_list">Cancel add list</string>
     <string name="cd_confirm_add_list">Confirm add list</string>
