@@ -68,4 +68,14 @@
     <string name="image_description">Image Description</string>
     <string name="app_logo">App Logo</string>
 
+    <string name="cd_cancel_add_list">Cancel add list</string>
+    <string name="cd_confirm_add_list">Confirm add list</string>
+    <string name="cd_edit_list_name">Edit list name</string>
+    <string name="cd_delete_list">Delete list</string>
+    <string name="cd_cancel_edit_list">Cancel edit list</string>
+    <string name="cd_save_list_name">Save list name</string>
+    <string name="cd_cancel_add_card">Cancel add card</string>
+    <string name="cd_confirm_add_card">Confirm add card</string>
+    <string name="cd_board_image">Board cover image</string>
+
 </resources>
