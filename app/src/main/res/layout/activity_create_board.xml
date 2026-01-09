@@ -46,7 +46,7 @@
                     android:id="@+id/iv_board_image"
                     android:layout_width="@dimen/board_image_size"
                     android:layout_height="@dimen/board_image_size"
-                    android:contentDescription="@string/image_contentDescription"
+                    android:contentDescription="@string/cd_board_image"
                     android:src="@drawable/ic_board_place_holder" />
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -62,7 +62,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/board_name"
-                        android:inputType="text"
+                        android:importantForAutofill="no"
+                        android:imeOptions="actionDone"
+                        android:inputType="textCapWords"
                         android:textSize="@dimen/et_text_size" />
 
                 </com.google.android.material.textfield.TextInputLayout>

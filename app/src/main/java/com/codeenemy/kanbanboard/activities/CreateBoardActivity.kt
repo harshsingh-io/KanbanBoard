@@ -56,6 +56,16 @@ class CreateBoardActivity : BaseActivity() {
                 )
             }
         }
+
+        binding?.etBoardName?.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_DONE) {
+                binding?.btnCreate?.performClick()
+                true
+            } else {
+                false
+            }
+        }
+
         binding?.btnCreate?.setOnClickListener {
             if (mSelectedImageFileUri != null) {
                 uploadBoardImage()
