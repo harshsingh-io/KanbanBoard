@@ -64,6 +64,15 @@ class CreateBoardActivity : BaseActivity() {
                 createBoard()
             }
         }
+        // Palette: Improve UX by allowing board creation on "Done" IME action
+        binding?.etBoardName?.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_DONE) {
+                binding?.btnCreate?.performClick()
+                true
+            } else {
+                false
+            }
+        }
     }
 
     private fun createBoard() {
