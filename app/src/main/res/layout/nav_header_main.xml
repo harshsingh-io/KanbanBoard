@@ -21,7 +21,7 @@
         android:layout_marginEnd="@dimen/nav_content_margin_StartEnd"
         app:civ_border_color="@android:color/white"
         app:civ_border_width="@dimen/nav_image_circular_border_width"
-        android:contentDescription="@string/image_contentDescription"
+        android:contentDescription="@string/cd_profile_image"
         android:src="@drawable/ic_user_place_holder" />
 
     <TextView

@@ -18,7 +18,7 @@
             android:id="@+id/iv_member_image"
             android:layout_width="@dimen/item_member_member_image_size"
             android:layout_height="@dimen/item_member_member_image_size"
-            android:contentDescription="@string/image_contentDescription"
+            android:importantForAccessibility="no"
             android:src="@drawable/ic_user_place_holder"
             app:civ_border_color="@color/primary_text_color"
             app:civ_border_width="@dimen/item_member_image_circular_width_size" />
