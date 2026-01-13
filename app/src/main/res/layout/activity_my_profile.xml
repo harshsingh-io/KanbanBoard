@@ -54,7 +54,7 @@
                     android:id="@+id/iv_profile_user_image"
                     android:layout_width="@dimen/my_profile_user_image_size"
                     android:layout_height="@dimen/my_profile_user_image_size"
-                    android:contentDescription="@string/image_contentDescription"
+                    android:contentDescription="@string/cd_profile_image_change"
                     android:src="@drawable/ic_user_place_holder" />
 
                 <com.google.android.material.textfield.TextInputLayout
