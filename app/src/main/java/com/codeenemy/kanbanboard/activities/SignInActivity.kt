@@ -21,6 +21,16 @@ class SignInActivity : BaseActivity() {
         binding?.btnSignIn?.setOnClickListener {
             signInRegisteredUser()
         }
+
+        binding?.etPassword?.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == android.view.inputmethod.EditorInfo.IME_ACTION_DONE) {
+                signInRegisteredUser()
+                true
+            } else {
+                false
+            }
+        }
+
         setupActionBar()
 
     }
