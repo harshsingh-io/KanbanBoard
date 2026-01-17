@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
@@ -57,12 +58,25 @@ class CreateBoardActivity : BaseActivity() {
             }
         }
         binding?.btnCreate?.setOnClickListener {
-            if (mSelectedImageFileUri != null) {
-                uploadBoardImage()
+            createBoardAction()
+        }
+
+        binding?.etBoardName?.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                createBoardAction()
+                true
             } else {
-                showProgressDialog(resources.getString(R.string.please_wait))
-                createBoard()
+                false
             }
+        }
+    }
+
+    private fun createBoardAction() {
+        if (mSelectedImageFileUri != null) {
+            uploadBoardImage()
+        } else {
+            showProgressDialog(resources.getString(R.string.please_wait))
+            createBoard()
         }
     }
 
