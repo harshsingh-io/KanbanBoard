@@ -3,6 +3,8 @@ package com.codeenemy.kanbanboard.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import com.codeenemy.kanbanboard.R
@@ -22,6 +24,13 @@ class SignUpActivity : BaseActivity() {
         binding?.btnSignUp?.setOnClickListener {
             registerUser()
         }
+        binding?.etPassword?.setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                registerUser()
+                return@OnEditorActionListener true
+            }
+            false
+        })
     }
 
     private fun setupActionBar() {
@@ -32,9 +41,6 @@ class SignUpActivity : BaseActivity() {
             actionBar.setHomeAsUpIndicator(R.drawable.ic_black_color_back_24dp)
         }
         binding?.toolbarSignUpActivity?.setNavigationOnClickListener { onBackPressed() }
-        binding?.btnSignUp?.setOnClickListener {
-            registerUser()
-        }
     }
 
     private fun registerUser() {
