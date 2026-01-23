@@ -23,3 +23,6 @@
 **Learning:** Found widespread use of generic "Image" or "Image Description" content descriptions in XML layouts, and decorative images being announced. This creates a noisy and confusing experience for screen reader users.
 **Action:** When adding ImageViews or ImageButtons, always ask: "Does this convey information?" If yes, add a specific, localized string. If no, use `importantForAccessibility="no"`. Never use generic placeholders like "Image".
 
+## 2024-05-23 - [Form Keyboard Navigation]
+**Learning:** Users often get stuck in forms because the keyboard's "Enter" key doesn't move to the next field or submit. Missing `imeOptions` forces users to manually tap fields or buttons.
+**Action:** Always add `imeOptions="actionNext"` for intermediate fields and `imeOptions="actionDone"` with an `OnEditorActionListener` for the final field.
