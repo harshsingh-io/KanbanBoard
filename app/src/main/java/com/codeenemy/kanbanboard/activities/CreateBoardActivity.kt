@@ -57,6 +57,11 @@ class CreateBoardActivity : BaseActivity() {
             }
         }
         binding?.btnCreate?.setOnClickListener {
+            if (binding?.etBoardName?.text.toString().trim().isEmpty()) {
+                showErrorSnackBar(resources.getString(R.string.err_msg_enter_board_name))
+                return@setOnClickListener
+            }
+
             if (mSelectedImageFileUri != null) {
                 uploadBoardImage()
             } else {
