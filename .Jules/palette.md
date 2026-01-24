@@ -23,3 +23,11 @@
 **Learning:** Found widespread use of generic "Image" or "Image Description" content descriptions in XML layouts, and decorative images being announced. This creates a noisy and confusing experience for screen reader users.
 **Action:** When adding ImageViews or ImageButtons, always ask: "Does this convey information?" If yes, add a specific, localized string. If no, use `importantForAccessibility="no"`. Never use generic placeholders like "Image".
 
+
+## 2024-05-23 - [Input Type Correctness]
+**Learning:** Using `textCapWords` alone in `inputType` might not sufficiently classify the input as text in all contexts.
+**Action:** Always combine flags with the class, e.g., `inputType="text|textCapWords"`.
+
+## 2024-05-23 - [Form Validation Pattern]
+**Learning:** Activities extending `BaseActivity` should use the built-in `showErrorSnackBar(message)` for consistent error feedback instead of Toasts.
+**Action:** Check for `BaseActivity` inheritance and reuse `showErrorSnackBar` for form validation.

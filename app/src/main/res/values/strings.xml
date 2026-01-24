@@ -78,4 +78,7 @@
     <string name="cd_confirm_add_card">Confirm add card</string>
     <string name="cd_board_image">Board cover image</string>
 
+    <string name="cd_change_board_image">Change board cover image</string>
+    <string name="err_msg_enter_board_name">Please enter a board name</string>
+
 </resources>
