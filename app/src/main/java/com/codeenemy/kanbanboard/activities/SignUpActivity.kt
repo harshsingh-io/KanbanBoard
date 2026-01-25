@@ -3,6 +3,8 @@ package com.codeenemy.kanbanboard.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import com.codeenemy.kanbanboard.R
@@ -21,6 +23,15 @@ class SignUpActivity : BaseActivity() {
         setupActionBar()
         binding?.btnSignUp?.setOnClickListener {
             registerUser()
+        }
+
+        binding?.etPassword?.setOnEditorActionListener { _: TextView, actionId: Int, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                registerUser()
+                true
+            } else {
+                false
+            }
         }
     }
 
