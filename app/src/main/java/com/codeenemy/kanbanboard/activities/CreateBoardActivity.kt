@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.inputmethod.EditorInfo
 import android.webkit.MimeTypeMap
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -62,6 +63,15 @@ class CreateBoardActivity : BaseActivity() {
             } else {
                 showProgressDialog(resources.getString(R.string.please_wait))
                 createBoard()
+            }
+        }
+
+        binding?.etBoardName?.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                binding?.btnCreate?.performClick()
+                true
+            } else {
+                false
             }
         }
     }

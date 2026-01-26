@@ -3,6 +3,7 @@ package com.codeenemy.kanbanboard.activities
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import com.codeenemy.kanbanboard.R
 import com.codeenemy.kanbanboard.databinding.ActivitySignInBinding
@@ -20,6 +21,15 @@ class SignInActivity : BaseActivity() {
         setContentView(binding?.root)
         binding?.btnSignIn?.setOnClickListener {
             signInRegisteredUser()
+        }
+
+        binding?.etPassword?.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                binding?.btnSignIn?.performClick()
+                true
+            } else {
+                false
+            }
         }
         setupActionBar()
 
