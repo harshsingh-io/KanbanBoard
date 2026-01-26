@@ -71,6 +71,7 @@
                         android:layout_height="wrap_content"
                         android:autofillHints="name"
                         android:hint="@string/name"
+                        android:imeOptions="actionNext"
                         android:inputType="textPersonName|textCapWords"
                         android:textSize="@dimen/et_text_size" />
 
@@ -112,6 +113,7 @@
                         android:layout_height="wrap_content"
                         android:autofillHints="phone"
                         android:hint="@string/mobile"
+                        android:imeOptions="actionDone"
                         android:inputType="phone"
                         android:textSize="@dimen/et_text_size" />
 

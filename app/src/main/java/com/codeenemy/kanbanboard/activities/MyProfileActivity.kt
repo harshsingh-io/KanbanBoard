@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.inputmethod.EditorInfo
 import android.webkit.MimeTypeMap
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -56,6 +57,15 @@ class MyProfileActivity : BaseActivity() {
             } else {
                 showProgressDialog(resources.getString(R.string.please_wait))
                 updateUserProfileData()
+            }
+        }
+
+        binding?.etMobile?.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                binding?.btnUpdate?.performClick()
+                true
+            } else {
+                false
             }
         }
     }

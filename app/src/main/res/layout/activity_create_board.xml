@@ -62,7 +62,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/board_name"
-                        android:inputType="text"
+                        android:imeOptions="actionDone"
+                        android:inputType="textCapWords"
                         android:textSize="@dimen/et_text_size" />
 
                 </com.google.android.material.textfield.TextInputLayout>
