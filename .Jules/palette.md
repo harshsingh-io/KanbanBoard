@@ -23,3 +23,6 @@
 **Learning:** Found widespread use of generic "Image" or "Image Description" content descriptions in XML layouts, and decorative images being announced. This creates a noisy and confusing experience for screen reader users.
 **Action:** When adding ImageViews or ImageButtons, always ask: "Does this convey information?" If yes, add a specific, localized string. If no, use `importantForAccessibility="no"`. Never use generic placeholders like "Image".
 
+## 2024-05-24 - [Input Accessibility & Actions]
+**Learning:** Custom input fields like "Board Name" that don't map to standard autofill types should explicitly use `android:importantForAutofill="no"` to prevent distracting suggestions. Also, interactive images need action-oriented descriptions (e.g., "Change board cover image") rather than static labels.
+**Action:** Review all `EditText` fields for correct `autofillHints` or explicit opt-out. Ensure `ImageView`s with `OnClickListener` have "action-verb + noun" content descriptions.
