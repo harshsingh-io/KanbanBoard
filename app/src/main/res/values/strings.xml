@@ -76,6 +76,6 @@
     <string name="cd_save_list_name">Save list name</string>
     <string name="cd_cancel_add_card">Cancel add card</string>
     <string name="cd_confirm_add_card">Confirm add card</string>
-    <string name="cd_board_image">Board cover image</string>
+    <string name="cd_board_image">Change board cover image</string>
 
 </resources>
