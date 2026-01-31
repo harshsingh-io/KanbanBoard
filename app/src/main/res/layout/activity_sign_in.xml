@@ -71,6 +71,7 @@
                         android:layout_height="wrap_content"
                         android:autofillHints="emailAddress"
                         android:hint="@string/email"
+                        android:imeOptions="actionNext"
                         android:inputType="textEmailAddress"
                         android:textSize="@dimen/et_text_size" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -91,6 +92,7 @@
                         android:layout_height="wrap_content"
                         android:autofillHints="password"
                         android:hint="@string/password"
+                        android:imeOptions="actionDone"
                         android:inputType="textPassword"
                         android:textSize="@dimen/et_text_size" />
                 </com.google.android.material.textfield.TextInputLayout>

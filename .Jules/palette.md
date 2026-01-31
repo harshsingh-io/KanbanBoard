@@ -23,3 +23,6 @@
 **Learning:** Found widespread use of generic "Image" or "Image Description" content descriptions in XML layouts, and decorative images being announced. This creates a noisy and confusing experience for screen reader users.
 **Action:** When adding ImageViews or ImageButtons, always ask: "Does this convey information?" If yes, add a specific, localized string. If no, use `importantForAccessibility="no"`. Never use generic placeholders like "Image".
 
+## 2024-05-24 - [Seamless Form Navigation]
+**Learning:** Android forms often lack `imeOptions` (Next/Done), forcing users to manually tap the next field or the submit button. This breaks the flow, especially on mobile keyboards.
+**Action:** Always pair `imeOptions="actionNext"` for intermediate fields and `imeOptions="actionDone"` for the final field with an `OnEditorActionListener` that programmatically triggers the submit button click.
