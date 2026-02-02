@@ -72,6 +72,7 @@
                         android:autofillHints="emailAddress"
                         android:hint="@string/email"
                         android:inputType="textEmailAddress"
+                        android:imeOptions="actionNext"
                         android:textSize="@dimen/et_text_size" />
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -92,6 +93,7 @@
                         android:autofillHints="password"
                         android:hint="@string/password"
                         android:inputType="textPassword"
+                        android:imeOptions="actionDone"
                         android:textSize="@dimen/et_text_size" />
                 </com.google.android.material.textfield.TextInputLayout>
 
